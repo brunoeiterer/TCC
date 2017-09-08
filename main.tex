@@ -1,11 +1,10 @@
-\documentclass[a5paper]{ufsc-thesis}  % escolha o tamanho do papel aqui
-
-% Gerador de texto
-\usepackage{lipsum}
+\documentclass[a5paper, oldfontcommands]{ufsc-thesis}  % escolha o tamanho do papel aqui
 
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+\usepackage{siunitx}
 
 % Preâmbulo
 \titulo{}
@@ -31,5 +30,10 @@
 \imprimirfichacatalografica%
 %\tableofcontents%
 \textual%
+
+\bibliographystyle{acm}
+\bibliography{bibliography}
+
+\include{introduction}
 
 \end{document}
