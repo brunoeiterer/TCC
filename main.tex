@@ -4,6 +4,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage[style=numeric, sorting=none]{biblatex}
+\DeclareNameAlias{author}{last-first}
+\addbibresource{bibliography.bib}
+
 \usepackage{siunitx}
 
 % Preâmbulo
@@ -31,9 +35,9 @@
 %\tableofcontents%
 \textual%
 
-\bibliographystyle{acm}
-\bibliography{bibliography}
-
+\begin{refsection}
 \include{introduction}
+\printbibliography
+\end{refsection}
 
 \end{document}
