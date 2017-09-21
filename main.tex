@@ -1,4 +1,4 @@
-\documentclass[a5paper, oldfontcommands]{ufsc-thesis}  % escolha o tamanho do papel aqui
+\documentclass[a5paper, oldfontcommands, hidelinks]{ufsc-thesis}  % escolha o tamanho do papel aqui
 
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
@@ -9,6 +9,7 @@
 \addbibresource{bibliography.bib}
 
 \usepackage{siunitx}
+\usepackage{circuitikz}
 
 % Preâmbulo
 \titulo{}
@@ -37,6 +38,11 @@
 
 \begin{refsection}
 \include{introduction}
+\printbibliography
+\end{refsection}
+
+\begin{refsection}
+\include{solarPanelModel}
 \printbibliography
 \end{refsection}
 
