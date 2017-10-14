@@ -1,8 +1,10 @@
 \chapter{Painel Solar}
 
-O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz \cite{jager2014}.
+O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz. O efeito fotovoltaico ocorre da seguinte maneira: em um semicondutor ideal existem dois níveis de energia que elétrons podem ser excitados, representados pela camada de valência, com energia baixa, e a camada de condução, com energia mais alta. Entre estas duas camada existe o chamado \textit{bandgap}, uma região de com níveis de energia que os elétrons não podem ter. Quando um fóton entra em contato com o semicondutor os elétrons na camada de valência absorvem sua energia e passam para a camada de condução, gerando uma corrente elétrica. Como não é possível que os elétrons possuam níveis intermediários de energia fótons que não possuam energia superior ao \textit{bandgap} não são absorvidos e passam sem interagir com a célula.\cite{jager2014}.
 
 \section{Modelo do Painel Solar}
+
+Em uma célula real existem perdas causadas por aquecimento no movimento dos elétrons, por impurezas no material que geram novos níveis de energia dentro do \textit{bandgap} e também por recombinação na junção p-n \cite{blakers2013}. Portanto para representar os painéis solares através de um circuito equivalente é necessário uma fonte de corrente associada com alguns componentes que representam as perdas.
 
 O modelo para uma célula aqui utilizado é um circuito equivalente composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser encontrado na figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
 
@@ -46,7 +48,7 @@ A corrente no diodo é dada pela equação \ref{eq:corrente_diodo}, onde I\texts
 I_{D} = I_{o}(e^{-\frac{q(V+I\cdot R_{s})}{nkT_{c}}}-1)
 \end{equation}
 
-A corrente no resistor R\textsubscript{p} pode ser obtida através da equação \ref{eq:corrente_Rp}, conhecida com lei de Ohm.
+A corrente no resistor R\textsubscript{p} pode ser obtida através da equação \ref{eq:corrente_Rp}, conhecida como lei de Ohm.
 
 \begin{equation} \label{eq:corrente_Rp}
 I_{R_{p}} = \frac{V+I\cdot R_{s}}{R_{p}}
