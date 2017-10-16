@@ -2,7 +2,7 @@
 
 O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz. O efeito fotovoltaico ocorre da seguinte maneira: em um semicondutor ideal existem dois níveis de energia que elétrons podem ser excitados, representados pela camada de valência, com energia baixa, e a camada de condução, com energia mais alta. Entre estas duas camada existe o chamado \textit{bandgap}, uma região de com níveis de energia que os elétrons não podem ter. Quando um fóton entra em contato com o semicondutor os elétrons na camada de valência absorvem sua energia e passam para a camada de condução, gerando uma corrente elétrica. Como não é possível que os elétrons possuam níveis intermediários de energia fótons que não possuam energia superior ao \textit{bandgap} não são absorvidos e passam sem interagir com a célula.\cite{jager2014}.
 
-\section{Modelo do Painel Solar}
+\section{Circuito Equivalente de um Painel Solar}
 
 Em uma célula real existem perdas causadas por aquecimento no movimento dos elétrons, por impurezas no material que geram novos níveis de energia dentro do \textit{bandgap} e também por recombinação na junção p-n \cite{blakers2013}. Portanto para representar as células solares através de um circuito equivalente é necessário uma fonte de corrente associada com alguns componentes que representam as perdas.
 
@@ -59,3 +59,97 @@ Combinando as equações apresentadas, obtem-se a equação \ref{eq:relacao_corr
 \begin{equation} \label{eq:relacao_corrente_tensao_celula_com_parametros}
 I = I_{ph} - I_{o}(e^{-\frac{q(V+I\cdot R_{s})}{nkT_{c}}}-1) - \frac{V+I\cdot R_{s}}{R_{p}}
 \end{equation}
+
+Quando várias células são conectadas em série e/ou em paralelo é formado um painel solar. As curvas características de corrente por tensão e potência por tensão de um painel podem ser vistas nas figuras \ref{figura_corrente_painel_temperatura} e \ref{figura_potencia_painel_temperatura}, onde é evidenciada a dependência com a temperatura e a irradiância. 
+
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics-25.csv}\solarPanelCharacteristicsMinusTwentyFive
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics0.csv}\solarPanelCharacteristicsZero
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics25.csv}\solarPanelCharacteristicsTwentyFive
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics50.csv}\solarPanelCharacteristicsFifty
+
+\begin{figure}[!htpb]
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsMinusTwentyFive};
+\addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsZero};
+\addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsTwentyFive};
+\addplot[mark = none, color = red, dash dot] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsFifty};
+\addlegendentry{\SI{-25}{\celsius}}
+\addlegendentry{\SI{0}{\celsius}}
+\addlegendentry{\SI{25}{\celsius}}
+\addlegendentry{\SI{50}{\celsius}}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Corrente de um painel \\\hspace{\textwidth} solar}
+\label{figura_corrente_painel_temperatura}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = north west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsMinusTwentyFive};
+\addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsZero};
+\addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsTwentyFive};
+\addplot[mark = none, color = red, dash dot] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsFifty};
+\addlegendentry{\SI{-25}{\celsius}}
+\addlegendentry{\SI{0}{\celsius}}
+\addlegendentry{\SI{25}{\celsius}}
+\addlegendentry{\SI{50}{\celsius}}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Potência de um painel \\\hspace{\textwidth} solar}
+\label{figura_potencia_painel_temperatura}
+\end{center}
+\end{minipage}
+\end{figure}
+
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics250.csv}\solarPanelCharacteristicsTwoHundredFifty
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics500.csv}\solarPanelCharacteristicsFiveHundred
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics750.csv}\solarPanelCharacteristicsSevenHundredFifty
+\pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics1000.csv}\solarPanelCharacteristicsThousand
+
+\begin{figure}[!htpb]
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsTwoHundredFifty};
+\addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsFiveHundred};
+\addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsSevenHundredFifty};
+\addplot[mark = none, color = red, dash dot] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsThousand};
+\addlegendentry{\SI[per-mode=symbol]{250}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{500}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{750}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{1000}{\watt\per\meter\squared}}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Corrente de um painel \\\hspace{\textwidth} solar}
+\label{figura_corrente_painel_irradiância}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsTwoHundredFifty};
+\addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsFiveHundred};
+\addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsSevenHundredFifty};
+\addplot[mark = none, color = red, dash dot] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsThousand};
+\addlegendentry{\SI[per-mode=symbol]{250}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{500}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{750}{\watt\per\meter\squared}}
+\addlegendentry{\SI[per-mode=symbol]{1000}{\watt\per\meter\squared}}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Potência de um painel \\\hspace{\textwidth} solar}
+\label{figura_potência_painel_irradiância}
+\end{center}
+\end{minipage}
+\end{figure}
+
+Como podemos ver pelas figuras, existe um ponto de máxima potência (MPP, do inglês \textit{maximum power point}) e que este ponto varia muito com a variação da temperatura do painel e um pouco com a variação da irradiância incidente, portanto para operar o painel sempre com a maior eficiência é necessário aplicar um controlador conhecido como MPPT (do inglês, \textit{maximum power point tracker}).
+
+\section{MPPT}
