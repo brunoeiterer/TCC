@@ -4,15 +4,24 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+%---- Bibliography packages ----%
+
 \usepackage[style=numeric, sorting=none]{biblatex}
 \DeclareNameAlias{author}{last-first}
 \addbibresource{bibliography.bib}
 
+%---- Units Packages ----%
+
 \usepackage{siunitx}
+
+%---- Drawing Packages ----%
+
 \usepackage{circuitikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.5}
-\usetikzlibrary{backgrounds}
+
+%---- Lists Packages ----%
+\usepackage[acronym, automake, nomain, nonumberlist]{glossaries-extra}
 
 % Preâmbulo
 \titulo{}
@@ -28,16 +37,23 @@
 \centro{}
 \assuntos{}
 
+
+\makeglossaries
+\loadglsentries[\acronymtype]{glossary}
+
 \begin{document}
 % Inicia parte pré-textual do documento capa, folha de rosto, folha de
 % aprovação, aprovação, resumo, lista de tabelas, lista de figuras, etc.
 \pretextual%
-\imprimircapa%
+\imprimircapa%!
 \imprimirfolhaderosto*%
 \clearpage
 \imprimirfichacatalografica%
 %\tableofcontents%
 \textual%
+
+\glsaddall 
+\printglossary[type=\acronymtype, title = Lista de Abreviaturas e Siglas]
 
 \begin{refsection}
 \include{introduction}
