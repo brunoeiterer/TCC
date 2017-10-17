@@ -153,3 +153,62 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 Como podemos ver pelas figuras, existe um ponto de máximo, conhecido como \gls{mpp}, e que este ponto varia muito com a variação da temperatura do painel e um pouco com a variação da irradiância incidente, portanto para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
 
 \section{\glsentryshort{mppt}}
+
+A impedância vista pelos terminais do painel determina o ponto de operação, de acordo com a equação \ref{eq:impedancia_painel}. Por conta deste fator, dificilmente um painel opera no \gls{mpp} quando conectado a uma carga arbitrária em um ambiente arbitrário. Para tal, são utilizados conversores CC-CC entre os painéis e a carga para realizar o casamento de impedância correto.
+
+\begin{equation}
+R = \frac{V}{I}
+\label{eq:impedancia_painel}
+\end{equation}
+
+\subsection{Funcionamento dos Conversores CC-CC}
+
+Para exemplificar o funcionamento dos conversores CC-CC em sistemas \gls{mppt} vamos considerar o caso de ser necessária tensão mais baixa na carga do que no painel, no qual é utilizado um conversor \textit{Buck}. O circuito deste sistema pode ser visto na figura \ref{circuito_com_conversor_buck}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+      to[nos, l = S] (2,3)
+(0,0) -- (2,0) to[diode, l = D]
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[capacitor, l = C] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[resistor, l=R\textsubscript{L}] (6,0) -- (4,0)
+(6,3) -- (8,3) to[open, v^=V\textsubscript{L}, o-o] (8,0) -- (6,0);
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+\end{center}
+\caption{Circuito com conversor \textit{Buck} para casamento de impedância}
+\label{circuito_com_conversor_buck}
+\end{figure}
+
+As equações \ref{eq:ganho_estatico_conversor_buck} e \ref{eq:ganho_estatico_conversor_buck_corrente} representam o ganho estático de tensão e corrente do conversor \textit{Buck}.
+
+\begin{equation} \label{eq:ganho_estatico_conversor_buck}
+\frac{V_{L}}{V_{pv}} = D
+\end{equation}
+
+\begin{equation}\label{eq:ganho_estatico_conversor_buck_corrente}
+\frac{I_{pv}}{I_{L}} = D
+\end{equation}
+
+Combinando estas duas equações na equação \ref{eq:relacao_impedancia_entrada_saida_buck} obtemos a relação entre a impedância de entrada e saída do conversor. Como a impedância de entrada é a impedância de saída do painel (carga do painel), podemos variar a razão cíclica D e consequentemente variar o ponto de operação do painel, de forma a sempre operar no ponto de máxima potência.
+
+\begin{equation} \label{eq:relacao_impedancia_entrada_saida_buck}
+\begin{aligned}
+R &= \frac{V_{pv}}{I_{pv}} \\
+&= \frac{V_{L}}{D} \cdot \frac{1}{I_{L}\cdot D} \\
+&= \frac{1}{D^{2}} \cdot \frac{V_{L}}{I_{L}} \\
+&= \frac{1}{D^{2}} \cdot R_{L}
+\end{aligned}
+\end{equation}
+
+Outros exemplos de conversores CC-CC empregados em sistemas \gls{mppt} são os conversores \textit{Boost}, quando deseja-se uma tensão de saída maior que na entrada, e os conversores \textit{Buck-Boost}, que podem ser usados tanto para aumentar como para diminuir a tensão de saída em relação a tensão de entrada.
+
+\subsection{Algoritmos}
+
+\subsubsection{Perturba e Observa}
+
+
