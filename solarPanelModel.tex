@@ -222,11 +222,11 @@ A grande vantagem deste algoritmo é a sua simplicidade na implementação, que 
 \begin{tikzpicture}
 
 \node [terminal, align = center](start){P(n) = 0 \\ P(n-1) = 0};
-\node [process, below of=start, align = center](arbitrary_perturbation){Perturbação em Sentido Arbitrário};
-\node [process, below of=arbitrary_perturbation, align = center](take_delta_P){\(\Delta\)P = P(n) - P(n-1)};
-\node [decision, below of=take_delta_P, align = center](test_delta_P){\(\Delta\)P > 0?};
-\node [process, left of=test_delta_P, align = center](keep_perturbation){Mantém o Sentido \\ da Perturbação};
-\node [process, right of=test_delta_P, align = center](invert_perturbation){Inverte o Sentido \\ da Perturbação};
+\node [process, below=of start, align = center](arbitrary_perturbation){Perturbação em Sentido Arbitrário};
+\node [process, below=of arbitrary_perturbation, align = center](take_delta_P){\(\Delta\)P = P(n) - P(n-1)};
+\node [decision, below=of take_delta_P, align = center](test_delta_P){\(\Delta\)P > 0?};
+\node [process, left=of test_delta_P, align = center](keep_perturbation){Mantém o Sentido \\ da Perturbação};
+\node [process, right=of test_delta_P, align = center](invert_perturbation){Inverte o Sentido \\ da Perturbação};
 \path [line](start) -- (arbitrary_perturbation);
 \path [line](arbitrary_perturbation) -- (take_delta_P);
 \path [line](take_delta_P) -- (test_delta_P);
