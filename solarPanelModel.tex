@@ -211,6 +211,34 @@ Outros exemplos de conversores CC-CC empregados em sistemas \gls{mppt} são os c
 
 Em geral, é muito custoso determinar pontos de operação possíveis em quantidade suficiente para controlar o sistema \gls{mppt} de forma satisfatória, portanto é necessário o emprego de algoritmos para determinar qual deve ser o ponto de operação em tempo real \cite{al2016}.
 
-\subsubsection{Perturba e Observa}
+\subsubsection{\glsentrylong{peo}}
 
+O algoritmo \gls{peo} funciona de acordo com o fluxograma da figura \ref{fluxograma_algoritmo_peo}, no qual n é a iteração atual e P é a potência do painel. Primeiramente é gerada uma perturbação em sentido arbitrário no ponto de operação do painel. Em seguida, verifica-se se a potência entregue aumentou ou diminiu em relação a iteração anterior, caso tenha aumentado mantém-se o sentido da perturbação aplicada, caso contrário o sentido é invertido. Desta forma o sistema irá caminhar na curva de potência até atingir o \gls{mpp}, sobre o qual ficará oscilando. Com isto evidencia-se um importante \textit{trade-off}: aumentar o passo da perturbação aumenta a velocidade com que o sistema atinge o \gls{mpp}, mas ao mesmo tempo faz com que a oscilação fique mais longe do \gls{mpp}, portanto deve se encontrar um passo que satisfaça todos os requisitos de projeto.
 
+A grande vantagem deste algoritmo é a sua simplicidade na implementação, que aliado com a sua alta eficiência quando implementado corretamente torna-o um dos algoritmos mais utilizados. A principal desvantagem é que este algoritmo demora a responder a variações grandes no ambiente. \cite{ngan2011}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{tikzpicture}
+
+\node [terminal, align = center](start){P(n) = 0 \\ P(n-1) = 0};
+\node [process, below of=start, align = center](arbitrary_perturbation){Perturbação em Sentido Arbitrário};
+\node [process, below of=arbitrary_perturbation, align = center](take_delta_P){\(\Delta\)P = P(n) - P(n-1)};
+\node [decision, below of=take_delta_P, align = center](test_delta_P){\(\Delta\)P > 0?};
+\node [process, left of=test_delta_P, align = center](keep_perturbation){Mantém o Sentido \\ da Perturbação};
+\node [process, right of=test_delta_P, align = center](invert_perturbation){Inverte o Sentido \\ da Perturbação};
+\path [line](start) -- (arbitrary_perturbation);
+\path [line](arbitrary_perturbation) -- (take_delta_P);
+\path [line](take_delta_P) -- (test_delta_P);
+\path [line](test_delta_P) -- node[above]{sim} (keep_perturbation);
+\path [line](test_delta_P) -- node[above]{não} (invert_perturbation);
+\path [line](keep_perturbation) |- (take_delta_P);
+\path [line](invert_perturbation) |- (take_delta_P);
+\end{tikzpicture}
+
+\end{center}
+\caption{Fluxograma do algoritmo \glsentryshort{peo}}
+\label{fluxograma_algoritmo_peo}
+\end{figure}
+
+\subsubsection{\glsentrylong{ci}}
