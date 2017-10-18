@@ -242,3 +242,29 @@ A grande vantagem deste algoritmo é a sua simplicidade na implementação, que 
 \end{figure}
 
 \subsubsection{\glsentrylong{ci}}
+
+O método da condutância incremental busca encontrar o \gls{mpp} utilizando-se do fato que a derivada da potência em relação à tensão no \gls{mpp} é nula, sendo este um ponto de máximo. Para fazer o rastreamento do \gls{mpp} é realizada a comparação da condutância incremental com a condutância instantânea \cite{ngan2011}. Para verificar como isto é possível vamos fazer a seguinte derivação, partindo da derivada da potência em relação a tensão:
+
+\begin{equation} \label{eq:derivada_potencia_tensao}
+\frac{dP}{dV} = \frac{d(IV)}{dV}
+= \frac{dI}{dV}\cdot V + I
+\end{equation}
+
+Aplicando a regra do produto no lado direito equação \ref{eq:derivada_potencia_tensao} obtemos:
+\begin{equation}
+\begin{aligned}
+\frac{dP}{dV} &= \frac{dI}{dV}\cdot V + \frac{dV}{dV}\cdot I \\
+&= \frac{dI}{dV}\cdot V + I
+\end{aligned}
+\end{equation}
+
+Pela curva PxV do painel podemos obter as seguintes afirmações:
+\begin{gather*}
+\begin{cases}
+\frac{dI}{dV} = -\frac{I}{V} & \text{operando no \glsentryshort{mpp}} \\
+\frac{dI}{dV} > -\frac{I}{V} & \text{operando à esquerda do \glsentryshort{mpp}} \\
+\frac{dI}{dV} < -\frac{I}{V} & \text{operando à direita do \glsentryshort{mpp}}
+\end{cases}
+\end{gather*}
+
+Assim, comparando a condutância incremental e a condutância instantânea é possível saber em qual posição da curva o painel está operando e tomar a atitude adequada. Este método apresenta resultados melhores que o \gls{peo} na maioria dos casos, principalmente quando as condições ambientais variam rapidamente, porém a complexidade dos cálculos realizados reduz um pouco seu uso \cite{tofoli2015}.
