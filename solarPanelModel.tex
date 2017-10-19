@@ -268,3 +268,16 @@ Pela curva PxV do painel podemos obter as seguintes afirmações:
 \end{gather*}
 
 Assim, comparando a condutância incremental e a condutância instantânea é possível saber em qual posição da curva o painel está operando e tomar a atitude adequada. Este método apresenta resultados melhores que o \gls{peo} na maioria dos casos, principalmente quando as condições ambientais variam rapidamente, porém a complexidade dos cálculos realizados reduz um pouco seu uso \cite{tofoli2015}.
+
+\subsubsection{\glsentrylong{aco}}
+
+O algoritmo \gls{aco} é um algoritmo probabilístico usado para encontrar soluções globais para problemas não-lineares. Ele tenta imitar o comportamento de formigas em busca de comida para encontrar o melhor caminho em um grafo.
+
+Quando formigas saem em busca de comida, inicialmente seu movimento é em direções aleatórias, até que seja encontrada comida. Quando isto acontece elas retornam à colônio deixando feromônios no caminho, de forma que as próximas formigas irão seguir o mesmo caminho. Em caminhos mais longos os feromônios evaporam mais rápido, de forma que as formigas irão cada vez mais seguir os caminhos de menor distância \cite{dorigo2006}.
+
+Para realizar \gls{mppt} com o algoritmo \gls{aco} primeiramente cada formiga do algoritmo é inicializada em um ponto aleatório de operação. Em seguida, o ferômonio é aumentado nos pontos de maior potência. A cada próxima iteração as formigas são inicializada em pontos distribuidos de forma aleatória em torno dos pontos com maior ferômonio de acordo com a iteração anterior. Assim é possível chegar ao \gls{mpp} de forma iterativa \cite{jiang2013}.
+
+Este algoritmo apresenta uma melhora em relação aos outros quando os paineis são operados parcialmente sob sombras, no qual a curva de potência apresenta vários máximos locais \cite{jiang2013}.
+
+
+
