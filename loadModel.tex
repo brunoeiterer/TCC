@@ -1,0 +1,29 @@
+\chapter{Modelagem das Cargas}
+
+\section{Computador de Bordo}
+
+O computador de bordo tem funções como armazenamento dos dados em memória não-volátil, leitura de sensores e aquisição dos dados dos demais módulos do satélite.
+
+Alguns contribuintes para o consumo estão listados na tabela \ref{consumo_computador_bordo}. Como é possível observar, poucos componentes contribuem para a maior parte do consumo. O cálculo da potência consumida é realizado multiplicando a corrente consumida pela tensão de alimentação, de \SI{3.3}{\volt}, exceto em casos especiais onde a equação é fornecida pelo \textit{datasheet} do componente.
+
+\begin{table}[!htpb]
+\begin{center}
+\begin{tabular}{c c c c}
+\\ \hline
+Componente & Quantidade & Corrente [\SI{}{\milli\ampere}] & Potência [\SI{}{\milli\watt}] \\ \hline \hline
+\glsentryshort{imu} (MPU-9250) & 1 & 3.7 \cite{mpu9250} & 12.21 \\
+\glsentryshort{imu} (BMX055) & 1 & 5.7 \cite{bmx055} & 18.81 \\
+Gerador de Referência & 1 & 0.026 \cite{ref5030}, \cite{msp430f6659} & 0.0008 \cite{ref5030} \\
+Amplificador Operacional & 4 & 0.2 \cite{tlv341} & 2.64 \\
+\textit{Watchdog} Externo & 1 & 0.025 \cite{tps3823} & 0.0825 \\
+microSD & 1 & 0.25 \cite{microSD} & 0.825 \\
+Memória não-volátil & 3 & 0.05 \cite{is25lp128} & 0.495 \\
+Microcontrolador & 1 & 8.39 \cite{msp430f6659} & 57.1134 \cite{msp430f6659} \\
+Sensor de Corrente & 1 & 0.23 \cite{max9934} & 2.277 \\
+Resistor Shunt (\SI{0.05}{\ohm}) & 1 & 19.271 & 0.01857 \\ \hline
+Total & - & 19.271 & 94.47 \\ \hline
+\end{tabular}
+\caption{Consumo do Computador de Bordo}
+\label{consumo_computador_bordo}
+\end{center}
+\end{table}

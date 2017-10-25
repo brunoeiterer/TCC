@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{textcomp}
+
 %---- Bibliography packages ----%
 
 \usepackage[style=numeric, sorting=none]{biblatex}
@@ -72,6 +74,11 @@
 
 \begin{refsection}
 \include{boostConverter}
+\printbibliography
+\end{refsection}
+
+\begin{refsection}
+\include{loadModel}
 \printbibliography
 \end{refsection}
 
