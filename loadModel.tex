@@ -7,10 +7,10 @@ O computador de bordo tem funções como armazenamento dos dados em memória nã
 Alguns contribuintes para o consumo estão listados na tabela \ref{consumo_computador_bordo}. Como é possível observar, poucos componentes contribuem para a maior parte do consumo. O cálculo da potência consumida é realizado multiplicando a corrente consumida pela tensão de alimentação, de \SI{3.3}{\volt}, exceto em casos especiais onde a equação é fornecida pelo \textit{datasheet} do componente.
 
 \begin{table}[!htpb]
-\begin{center}
+\centering
 \begin{tabular}{c c c c}
 \\ \hline
-Componente & Quantidade & Corrente [\SI{}{\milli\ampere}] & Potência [\SI{}{\milli\watt}] \\ \hline \hline
+Componente & Quantia & Corrente [\SI{}{\milli\ampere}] & Potência [\SI{}{\milli\watt}] \\ \hline \hline
 \glsentryshort{imu} (MPU-9250) & 1 & 3.7 \cite{mpu9250} & 12.21 \\
 \glsentryshort{imu} (BMX055) & 1 & 5.7 \cite{bmx055} & 18.81 \\
 Gerador de Referência & 1 & 0.026 \cite{ref5030}, \cite{msp430f6659} & 0.0008 \cite{ref5030} \\
@@ -25,7 +25,24 @@ Total & - & 19.271 & 94.47 \\ \hline
 \end{tabular}
 \caption{Consumo do Computador de Bordo}
 \label{consumo_computador_bordo}
-\end{center}
 \end{table}
 
 Aqui foram considerados apenas os consumos constantes, ou seja, o aumento no consumo durante comunicações do processador com outros dispositivos não foi considerado por apresentar um valor muito pequeno quando comparado com o constante (\SI{0.05}{\milli\watt} de média).
+
+\section{Rádios e Amplificadores de Potência}
+
+Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica desativado. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Como os dados enviados por cada rádio são diferentes, os períodos de transmissão e o tempo ativo também são diferentes.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{c c c c}
+\\ \hline
+Componente & Período/ & Corrente [\SI{}{\ampere}] & Potência [\SI{}{\milli\watt}] \\
+& Tempo Ativo [\SI{}{\second}] & & \\ \hline \hline
+\glsentryshort{pa} (Transceiver) & 60/2 & 0.6 \cite{rf6886} & 1.98 \\
+\glsentryshort{pa} (Beacon) & 10/0.6 & 0.6 \cite{rf6886} & 1.98 \\ \hline
+Total & - & - & - \\ \hline
+\end{tabular}
+\caption{Consumo dos Rádios}
+\label{consumo_radios}
+\end{table}
