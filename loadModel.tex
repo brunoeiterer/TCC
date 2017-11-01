@@ -46,3 +46,35 @@ Total & - & - & - \\ \hline
 \caption{Consumo dos Rádios}
 \label{consumo_radios}
 \end{table}
+
+\section{Sistema de Energia}
+
+O \gls{eps} tem como função captar a energia dos painéis solares, armazenar em baterias e distribuir para os outros módulos. Estas funções geram o consumo detalhado na tabela \ref{consumo_eps}.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{c c c c}
+\\ \hline
+Componente & Quantia & Corrente [\SI{}{\milli\ampere}] & Potência [\SI{}{\milli\watt}] \\ \hline \hline
+Gerador de Referência & 1 & 0.026 \cite{ref5030}, \cite{msp430f6659} & 0.0008 \cite{ref5030} \\
+Amplificador Operacional & 5 & 0.2 \cite{tlv341} & 0.66 \\
+Sensor de Corrente & 7 & 0.23 \cite{max9934} & 0.759 \\
+Resistor Shunt (\SI{0.75}{\ohm}) & 1 & 0.2 & 3 \\
+Resistor Shunt (\SI{0.05}{\ohm}) & 6 & 508 & 12.903 \\
+Timer 555 & 1 & 0.250 \cite{lmc555} & 0.825 \\
+ADC externo & 1 & 0.59 \cite{ads1248} & 1.947 \\
+Microcontrolador & 1 & 8.39 \cite{msp430f6659} & 57.1134 \cite{msp430f6659} \\
+Kill-Switches & 4 & 350 & 3.063 \cite{si4403} \\
+Monitor de Bateria & 1 & 0.135 \cite{ds2775} & 1.134 \cite{ds2775} \\
+Proteção das Baterias & 1 & 700 & 10.29 \cite{fds6898az} \\
+Aquecedor das Baterias & 2 & & \\
+Conversor CC-CC (5420) & 1 & 49.456 & 206.588 \cite{tps5420} \\
+Conversor CC-CC (5410) & 1 & 21.281 & 210.322 \cite{tps5410} \\
+Conversor CC-CC (54540) & 2 & 600 & 149.032 \cite{tps54540} \\
+Total & - & - & - \\ \hline
+\end{tabular}
+\caption{Consumo do Sistema de Energia}
+\label{consumo_eps}
+\end{table}
+
+O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios.
