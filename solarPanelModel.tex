@@ -150,68 +150,83 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \end{minipage}
 \end{figure}
 
+\section{Modelo do Painel Real}
+
+Para encontrar os parâmetros do circuito equivalente foi usada a técnica de ajuste da curva, de forma que os parâmetros foram determinados de forma iterativa, visando minimizar o erro entre a curva do modelo e uma curva medida. Para melhorar a precisão do modelo foram determinadas três regiões de operação, nas quais os testes de bancada foram realizados. Os resultados estão na tabela \ref{parametros_modelo_painel_solar} e nas figuras \ref{figura_comparacao_150}, \ref{figura_comparacao_450} e \ref{figura_comparacao_700}. Foi possível manter o erro abaixo de \SI{5}{\percent} em toda a curva exceto em regiões próximas a tensão de circuito aberto, as quais não são relevantes para este trabalho.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{c c c c c}
+\\ \hline
+Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] & R\textsubscript{sh} [\SI{}{\ohm}] & I\textsubscript{r} [\SI{}{\nano\ampere}] & n \\ \hline \hline
+150 & 3.22999 & 402.2 & 559 & 1.8 \\
+450 & 0.15 & 202.402 & 577 & 1.8 \\
+700 & 0.15 & 143.602 & 559 & 1.78 \\ \hline
+\end{tabular}
+\caption{Parâmetros do Modelo do Painel Solar}
+\label{parametros_modelo_painel_solar}
+\end{table}
+
+\pgfplotstableread[col sep = comma]{figures/solarModelCurve1-5A.csv}\solarPanelModelOnePointFive
+\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve1-5A.csv}\solarPanelMeasuredOnePointFive
+\pgfplotstableread[col sep = comma]{figures/solarModelCurve5A.csv}\solarPanelModelFive
+\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve5A.csv}\solarPanelMeasuredFive
+\pgfplotstableread[col sep = comma]{figures/solarModelCurve8-5A.csv}\solarPanelModelEightPointFive
+\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve8-5A.csv}\solarPanelMeasuredEightPointFive
+
+\begin{figure}[!htpb]
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelOnePointFive};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredOnePointFive};
+\addlegendentry{Curva do Modelo}
+\addlegendentry{Curva Medida}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Curvas para \SI[per-mode=symbol]{150}{\watt\per\square\meter}}
+\label{figura_comparacao_150}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelFive};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredFive};
+\addlegendentry{Curva do Modelo}
+\addlegendentry{Curva Medida}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Curvas para \SI[per-mode=symbol]{450}{\watt\per\square\meter}}
+\label{figura_comparacao_450}
+\end{center}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{tikzpicture}[trim axis left, trim axis right]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelEightPointFive};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredEightPointFive};
+\addlegendentry{Curva do Modelo}
+\addlegendentry{Curva Medida}
+\end{axis}
+\end{tikzpicture}
+\caption[caption]{Curvas para \SI[per-mode=symbol]{700}{\watt\per\square\meter}}
+\label{figura_comparacao_700}
+\end{center}
+\end{figure}
+
 Como podemos ver pelas figuras, existe um ponto de máximo, conhecido como \gls{mpp}, e que este ponto varia muito com a variação da temperatura do painel e um pouco com a variação da irradiância incidente, portanto para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
 
 \section{\glsentryshort{mppt}}
 
-A impedância vista pelos terminais do painel determina o ponto de operação, de acordo com a equação \ref{eq:impedancia_painel}. Por conta deste fator, dificilmente um painel opera no \gls{mpp} quando conectado a uma carga arbitrária em um ambiente arbitrário. Para tal, são utilizados conversores CC-CC entre os painéis e a carga para realizar o casamento de impedância correto.
+Em geral, é muito custoso determinar uma quantidade pontos de operação possíveis em quantidade suficiente para controlar o sistema \gls{mppt} de forma satisfatória, portanto é necessário o emprego de algoritmos para determinar qual deve ser o ponto de operação em tempo real \cite{al2016}.
 
-\begin{equation}
-R = \frac{V}{I}
-\label{eq:impedancia_painel}
-\end{equation}
-
-\subsection{Funcionamento dos Conversores CC-CC}
-
-Para exemplificar o funcionamento dos conversores CC-CC em sistemas \gls{mppt} vamos considerar o caso de ser necessária tensão mais baixa na carga do que no painel, no qual é utilizado um conversor \textit{Buck}. O circuito deste sistema pode ser visto na figura \ref{circuito_com_conversor_buck}.
-
-\begin{figure}[!htpb]
-\begin{center}
-\begin{circuitikz} [american]
-\draw
-(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
-      to[nos, l = S] (2,3)
-(0,0) -- (2,0) to[diode, l = D]
-(2,3) to[inductor, l = L] (4,3)
-(4,3) to[capacitor, l = C] (4,0) -- (2,0)
-(4,3) to[short] (6,3)
-(6,3) to[resistor, l=R\textsubscript{L}] (6,0) -- (4,0)
-(6,3) -- (8,3) to[open, v^=V\textsubscript{L}, o-o] (8,0) -- (6,0);
-\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
-\end{circuitikz}
-\end{center}
-\caption{Circuito com conversor \textit{Buck} para casamento de impedância}
-\label{circuito_com_conversor_buck}
-\end{figure}
-
-As equações \ref{eq:ganho_estatico_conversor_buck} e \ref{eq:ganho_estatico_conversor_buck_corrente} representam o ganho estático de tensão e corrente do conversor \textit{Buck}.
-
-\begin{equation} \label{eq:ganho_estatico_conversor_buck}
-\frac{V_{L}}{V_{pv}} = D
-\end{equation}
-
-\begin{equation}\label{eq:ganho_estatico_conversor_buck_corrente}
-\frac{I_{pv}}{I_{L}} = D
-\end{equation}
-
-Combinando estas duas equações na equação \ref{eq:relacao_impedancia_entrada_saida_buck} obtemos a relação entre a impedância de entrada e saída do conversor. Como a impedância de entrada é a impedância de saída do painel (carga do painel), podemos variar a razão cíclica D e consequentemente variar o ponto de operação do painel, de forma a sempre operar no ponto de máxima potência.
-
-\begin{equation} \label{eq:relacao_impedancia_entrada_saida_buck}
-\begin{aligned}
-R &= \frac{V_{pv}}{I_{pv}} \\
-&= \frac{V_{L}}{D} \cdot \frac{1}{I_{L}\cdot D} \\
-&= \frac{1}{D^{2}} \cdot \frac{V_{L}}{I_{L}} \\
-&= \frac{1}{D^{2}} \cdot R_{L}
-\end{aligned}
-\end{equation}
-
-Outros exemplos de conversores CC-CC empregados em sistemas \gls{mppt} são os conversores \textit{Boost}, quando deseja-se uma tensão de saída maior que na entrada \cite{xiao2007}, e os conversores \textit{Buck-Boost}, que podem ser usados tanto para aumentar como para diminuir a tensão de saída em relação a tensão de entrada \cite{qaiser2014}.
-
-\subsection{Algoritmos}
-
-Em geral, é muito custoso determinar pontos de operação possíveis em quantidade suficiente para controlar o sistema \gls{mppt} de forma satisfatória, portanto é necessário o emprego de algoritmos para determinar qual deve ser o ponto de operação em tempo real \cite{al2016}.
-
-\subsubsection{\glsentrylong{peo}}
+\subsection{\glsentrylong{peo}}
 
 O algoritmo \gls{peo} funciona de acordo com o fluxograma da figura \ref{fluxograma_algoritmo_peo}, no qual n é a iteração atual e P é a potência do painel. Primeiramente é gerada uma perturbação em sentido arbitrário no ponto de operação do painel. Em seguida, verifica-se se a potência entregue aumentou ou diminiu em relação a iteração anterior, caso tenha aumentado mantém-se o sentido da perturbação aplicada, caso contrário o sentido é invertido. Desta forma o sistema irá caminhar na curva de potência até atingir o \gls{mpp}, sobre o qual ficará oscilando. Com isto evidencia-se um importante \textit{trade-off}: aumentar o passo da perturbação aumenta a velocidade com que o sistema atinge o \gls{mpp}, mas ao mesmo tempo faz com que a oscilação fique mais longe do \gls{mpp}, portanto deve se encontrar um passo que satisfaça todos os requisitos de projeto.
 
@@ -241,7 +256,7 @@ A grande vantagem deste algoritmo é a sua simplicidade na implementação, que 
 \label{fluxograma_algoritmo_peo}
 \end{figure}
 
-\subsubsection{\glsentrylong{ci}}
+\subsection{\glsentrylong{ci}}
 
 O método da condutância incremental busca encontrar o \gls{mpp} utilizando-se do fato que a derivada da potência em relação à tensão no \gls{mpp} é nula, sendo este um ponto de máximo. Para fazer o rastreamento do \gls{mpp} é realizada a comparação da condutância incremental com a condutância instantânea \cite{ngan2011}. Para verificar como isto é possível vamos fazer a seguinte derivação, partindo da derivada da potência em relação a tensão:
 
@@ -269,7 +284,7 @@ Pela curva PxV do painel podemos obter as seguintes afirmações:
 
 Assim, comparando a condutância incremental e a condutância instantânea é possível saber em qual posição da curva o painel está operando e tomar a atitude adequada. Este método apresenta resultados melhores que o \gls{peo} na maioria dos casos, principalmente quando as condições ambientais variam rapidamente, porém a complexidade dos cálculos realizados reduz um pouco seu uso \cite{tofoli2015}.
 
-\subsubsection{\glsentrylong{aco}}
+\subsection{\glsentrylong{aco}}
 
 O algoritmo \gls{aco} é um algoritmo probabilístico usado para encontrar soluções globais para problemas não-lineares. Ele tenta imitar o comportamento de formigas em busca de comida para encontrar o melhor caminho em um grafo.
 
@@ -279,5 +294,7 @@ Para realizar \gls{mppt} com o algoritmo \gls{aco} primeiramente cada formiga do
 
 Este algoritmo apresenta uma melhora em relação aos outros quando os paineis são operados parcialmente sob sombras, no qual a curva de potência apresenta vários máximos locais \cite{jiang2013}.
 
+\subsection{Outros Algoritmos}
 
+Em sistemas mais modernos outros tipos de algoritmos também são utilizados. Dentre eles podemos citar redes neurais \cite{elobaid2012}, algoritmos genéticos \cite{daraban2013}, entre outros.
 
