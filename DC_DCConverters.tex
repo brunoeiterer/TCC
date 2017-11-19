@@ -1,4 +1,4 @@
-\chapter{Conversores CC-CC}
+\chapter{Funcionamento e Modelagem dos Conversores CC-CC} \label{secao:conversores_cc_cc}
 
 Para possibilitar o controle do ponto de operação do painel são empregados conversores CC-CC com diferentes técnicas de controle. As mais comuns são o casamento de impedância entre a carga e a impedância vista pelos terminais do painel \cite{haroun2015}, \cite{ramasamy2014} e o controle direto da tensão nos terminais do painel, quando a carga é um barramento com tensão constante \cite{xiao2007topology}, \cite{xiao2007}.
 
@@ -55,24 +55,26 @@ R &= \frac{V_{pv}}{I_{pv}} \\
 
 \section{Controle Direto da Tensão}
 
-Para exemplificar o controle da tensão do painel solar e vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor boost. O circuito completo pode ser visto na figura \ref{circuito_completo}.
+Para exemplificar o controle da tensão do painel solar e vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor \textit{Boost}. O circuito completo pode ser visto na figura \ref{circuito_completo}.
 
 \begin{figure}[!htpb]
 \begin{center}
 \begin{circuitikz} [american]
 \draw
 (0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
-      to[inductor, l = L] (2,3)
-(2,3) to[nos, l = S] (2,0) -- (0,0)
-(2,3) to[diode, l = D] (4,3)
-(4,3) to[capacitor, l = C] (4,0) -- (2,0)
-(4,3) to[short] (6,3)
-(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
+	  to[short](2,3)
+(2,3) to[capacitor, l = C\textsubscript{in}](2,0) -- (0,0)
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[nos, l = S] (4,0) -- (2,0)
+(4,3) to[diode, l = D] (6,3)
+(6,3) to[capacitor, l = C\textsubscript{out}] (6,0) -- (4,0)
+(6,3) to[short] (8,3)
+(8,3) to[battery, v = V\textsubscript{bat}] (8,0) -- (6,0);
 
 \draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
 \end{circuitikz}
 \end{center}
-\caption{Circuito completo}
+\caption{Circuito com conversor \textit{Boost} para controle da tensão}
 \label{circuito_completo}
 \end{figure}
 
@@ -85,12 +87,14 @@ Na primeira etapa, com a chave fechada, temos o circuito da figura \ref{circuito
 \begin{circuitikz} [american]
 \draw
 (0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
-      to[inductor, l = L] (2,3)
-(2,3) to[short] (2,0) -- (0,0)
-(2,3) to[open] (4,3)
-(4,3) to[capacitor, l = C] (4,0) -- (2,0)
-(4,3) to[short] (6,3)
-(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
+(0,3) to[short] (2,3)
+(2,3) to[capacitor, l = C\textsubscript{in}] (2,0) -- (0,0)
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[short] (4,0) -- (2,0)
+(4,3) to[open] (6,3)
+(6,3) to[capacitor, l = C\textsubscript{out}] (6,0) -- (4,0)
+(6,3) to[short] (8,3)
+(8,3) to[battery, v = V\textsubscript{bat}] (8,0) -- (6,0);
 
 \draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
 \end{circuitikz}
@@ -110,10 +114,12 @@ Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, 
 \begin{circuitikz} [american]
 \draw
 (0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
-      to[inductor, l = L] (2,3)
-(2,3) to[capacitor, l = C] (2,0) -- (0,0)
-(2,3) to[short] (4,3)
-(4,3) to[battery, v = V\textsubscript{bat}] (4,0) -- (2,0);
+(0,3) to[short] (2,3)
+(2,3) to[capacitor, l = C\textsubscript{in}] (2,0) -- (0,0)
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[capacitor, l = C \textsubscript{out}] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
 
 \draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
 \end{circuitikz}
@@ -147,3 +153,5 @@ V_{pv} = V_{bat}(1-D)
 \end{equation}
 
 Com isso vemos que é possível controlar a tensão do painel diretamente pelo controle da razão cíclica do conversor.
+
+Esta estratégia de controle direto com conversor \textit{Boost} será a implementada neste trabalho, devido ao fato de que os painéis trabalham em torno de \SI{5}{\volt} e as duas baterias em série apresentam uma tensão de \SI{5.4}{\volt} quando estão descarregadas ao limite inferior.
