@@ -1,4 +1,4 @@
-\chapter{Modelagem das Cargas}
+\chapter{Modelagem das Cargas} \label{secao:modelagem_cargas}
 
 \section{Computador de Bordo}
 
@@ -29,18 +29,20 @@ Total & - & 19.271 & 94.47 \\ \hline
 
 Aqui foram considerados apenas os consumos constantes, ou seja, o aumento no consumo durante comunicações do processador com outros dispositivos não foi considerado por apresentar um valor muito pequeno quando comparado com o constante (\SI{0.05}{\milli\watt} de média).
 
+Além disso, este módulo pode ser desativo dependendo do nível de carga armazenado nas baterias, de acordo com a seção \ref{secao:variacao_niveis_energia}.
+
 \section{Rádios e Amplificadores de Potência}
 
-Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica desativado. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Como os dados enviados por cada rádio são diferentes, os períodos de transmissão e o tempo ativo também são diferentes.
+Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do que em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica desativado. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Cada rádio envia periodicamente dados para a Terra, com períodos de transmissão e o tempo ativo diferentes, sendo que o período de transmissão é variável de acordo com o nível de carga armazenado nas baterias (seção \ref{secao:variacao_niveis_energia}). Além disso existe a possibilidade de a estação terrestre solicitar o envio de dados através de telecomandos. Neste caso, a transmissão fica ativa até que todos os dados solicitados sejam enviados. Para modelar este comportamento será considerada uma janela de 10 minutos por órbita, o que simula um hipotético pior caso (em termos de energia consumida).
 
 \begin{table}[!htpb]
 \centering
 \begin{tabular}{c c c c}
 \\ \hline
-Componente & Período/ & Corrente [\SI{}{\ampere}] & Potência [\SI{}{\milli\watt}] \\
+Componente & Período/ & Corrente [\SI{}{\ampere}] & Potência [\SI{}{watt}] \\
 & Tempo Ativo [\SI{}{\second}] & & \\ \hline \hline
-\glsentryshort{pa} (Transceiver) & 60/2 & 0.6 \cite{rf6886} & 1.98 \\
-\glsentryshort{pa} (Beacon) & 10/0.6 & 0.6 \cite{rf6886} & 1.98 \\ \hline
+\glsentryshort{pa} (Transceiver) & 60-\(\infty\)/2 & 0.6 \cite{rf6886} & 1.98 \\
+\glsentryshort{pa} (Beacon) & 10-30/0.6 & 0.6 \cite{rf6886} & 1.98 \\ \hline
 Total & - & - & - \\ \hline
 \end{tabular}
 \caption{Consumo dos Rádios}
@@ -67,7 +69,7 @@ Microcontrolador & 1 & 8.39 \cite{msp430f6659} & 57.1134 \cite{msp430f6659} \\
 Kill-Switches & 4 & 350 & 3.063 \cite{si4403} \\
 Monitor de Bateria & 1 & 0.135 \cite{ds2775} & 1.134 \cite{ds2775} \\
 Proteção das Baterias & 1 & 700 & 10.29 \cite{fds6898az} \\
-Aquecedor das Baterias & 2 & & \\
+Aquecedor das Baterias & 2 & - & 3180\\
 Conversor CC-CC (5420) & 1 & 49.456 & 206.588 \cite{tps5420} \\
 Conversor CC-CC (5410) & 1 & 21.281 & 210.322 \cite{tps5410} \\
 Conversor CC-CC (54540) & 2 & 600 & 149.032 \cite{tps54540} \\ \hline
@@ -77,4 +79,49 @@ Total & - & - & - \\ \hline
 \label{consumo_eps}
 \end{table}
 
-O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios.
+O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios. O aquecedor das baterias só é necessário nos momentos da órbita onde há eclipse, portanto assim será considerado para a modelagem.
+
+\section{\textit{Payloads}}
+
+Os \textit{Payloads} são os módulos do satélite que realizam as funções principais. Por exemplo, no caso de um satélite que tira fotos da terra os \textit{payloads} são as câmeras. No caso deste trabalho o \textit{payload} é um \gls{fpga} usado para testar os efeitos da radição nos componentes no espaço, com consumo de \SI{288}{\milli\ampere} em \SI{5}{\volt} (\SI{1.44}{\watt}), devido a presença do \gls{fpga} Xilinx Artix 7 XC7A200T.
+
+
+\section{Variação com os Níveis de Energia Armazenada} \label{secao:variacao_niveis_energia}
+
+Para evitar que as baterias sejam descarregadas muito rapidamente e o satélite fique inoperante por muito tempo foram determinados níveis de carga baseados no nível de carga armazenado nas baterias. Estes níveis podem ser vistos na tabela \ref{niveis_carga}.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{c c c c c}
+\\ \hline
+Nível & Período \textit{Beacon} [\SI{}{\second}] & Período \textit{Downlink} & \textit{Payloads} & OBDH \\ 
+& &  Periódico [\SI{}{\second}] & & \\ \hline \hline
+L1 & 10 & 60 & on & on \\
+L2 & 10 & 60 & off & on \\
+L3 & 20 & 120 & off & on \\
+L4 & 30 & \(\infty\) & off & on \\
+L5 & 30 & \(\infty\) & off & off \\ \hline
+\end{tabular}
+\caption{Níveis de Carga do Sistema}
+\label{niveis_carga}
+\end{table}
+
+A relação entre os limiares de carga armazenada e a transição entre os níveis da tabela \ref{niveis_carga} estão na tabela \ref{niveis_energia}. Os limiares de transição de nível alto-baixo e baixo-alto são diferentes para evitar oscilações do sistema em torno destes limiares.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{c c}
+\\ \hline
+Transição & Carga Armazenada [\SI{}{\ampere\hour}] \\ \hline \hline
+L1-L2 & 2.4 \\
+L2-L1 & 2.55 \\
+L2-L3 & 1.8 \\
+L3-L2 & 1.95 \\
+L3-L4 & 1.2 \\
+L4-L3 & 1.35 \\
+L4-L5 & 0.6 \\
+L5-L4 & 0.75 \\ \hline
+\end{tabular}
+\caption{Transição dos Níveis de Carga do Sistema}
+\label{niveis_energia}
+\end{table}
