@@ -1,12 +1,12 @@
-\chapter{Painel Solar}
+\chapter{Painel Solar} \label{secao:painel solar}
 
-O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz. O efeito fotovoltaico ocorre da seguinte maneira: em um semicondutor ideal existem dois níveis de energia que elétrons podem ser excitados, representados pela camada de valência, com energia baixa, e a camada de condução, com energia mais alta. Entre estas duas camada existe o chamado \textit{bandgap}, uma região de com níveis de energia que os elétrons não podem ter. Quando um fóton entra em contato com o semicondutor os elétrons na camada de valência absorvem sua energia e passam para a camada de condução, gerando uma corrente elétrica. Como não é possível que os elétrons possuam níveis intermediários de energia fótons que não possuam energia superior ao \textit{bandgap} não são absorvidos e passam sem interagir com a célula.\cite{jager2014}.
+O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz. O efeito fotovoltaico ocorre da seguinte maneira: em um semicondutor ideal existem dois níveis de energia que elétrons podem ser excitados, representados pela camada de valência, com energia baixa, e a camada de condução, com energia mais alta. Entre estas duas camada existe o chamado \textit{bandgap}, uma região com níveis de energia que os elétrons não podem ter. Quando um fóton entra em contato com o semicondutor os elétrons na camada de valência absorvem sua energia e passam para a camada de condução, gerando uma corrente elétrica. Como não é possível que os elétrons possuam níveis intermediários de energia fótons que não possuam energia superior ao \textit{bandgap} não são absorvidos e passam sem interagir com a célula.\cite{jager2014}.
 
 \section{Circuito Equivalente de um Painel Solar}
 
 Em uma célula real existem perdas causadas por aquecimento no movimento dos elétrons, por impurezas no material que geram novos níveis de energia dentro do \textit{bandgap} e também por recombinação na junção p-n \cite{blakers2013}. Portanto para representar as células solares através de um circuito equivalente é necessário uma fonte de corrente associada com alguns componentes que representam as perdas.
 
-O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser encontrado na figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
+O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente é composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser encontrado na figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -54,13 +54,13 @@ A corrente no resistor R\textsubscript{p} pode ser obtida através da equação 
 I_{R_{p}} = \frac{V+I\cdot R_{s}}{R_{p}}
 \end{equation}
 
-Combinando as equações apresentadas, obtem-se a equação \ref{eq:relacao_corrente_tensao_celula_com_parametros}, que mostra a relação entre a corrente e a tensão da celula solar a partir dos parâmetros do circuito equivalente.
+Combinando as equações apresentadas, obtem-se a equação \ref{eq:relacao_corrente_tensao_celula_com_parametros}, que mostra a relação entre a corrente e a tensão da célula solar a partir dos parâmetros do circuito equivalente.
 
 \begin{equation} \label{eq:relacao_corrente_tensao_celula_com_parametros}
 I = I_{ph} - I_{o}(e^{-\frac{q(V+I\cdot R_{s})}{nkT_{c}}}-1) - \frac{V+I\cdot R_{s}}{R_{p}}
 \end{equation}
 
-Quando várias células são conectadas em série e/ou em paralelo é formado um painel solar. As curvas características de corrente por tensão e potência por tensão de um painel podem ser vistas nas figuras \ref{figura_corrente_painel_temperatura} e \ref{figura_potencia_painel_temperatura}, onde é evidenciada a dependência com a temperatura e a irradiância. 
+Quando várias células são conectadas em série e/ou em paralelo é formado um painel solar. As curvas características de corrente por tensão e potência por tensão de um painel podem ser vistas nas figuras \ref{figura_corrente_painel_temperatura}, \ref{figura_potencia_painel_temperatura}, \ref{figura_corrente_painel_irradiância} e \ref{figura_potência_painel_irradiância}, nas quais é evidenciada a dependência com a temperatura e a irradiância. 
 
 \pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics-25.csv}\solarPanelCharacteristicsMinusTwentyFive
 \pgfplotstableread[col sep = comma]{figures/solarPanelCharacteristics0.csv}\solarPanelCharacteristicsZero
@@ -82,7 +82,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \addlegendentry{\SI{50}{\celsius}}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Corrente de um painel \\\hspace{\textwidth} solar}
+\caption{Curva IxV (temperatura)}
 \label{figura_corrente_painel_temperatura}
 \end{center}
 \end{minipage}
@@ -100,7 +100,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \addlegendentry{\SI{50}{\celsius}}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Potência de um painel \\\hspace{\textwidth} solar}
+\caption{Curva PxV (temperatura)}
 \label{figura_potencia_painel_temperatura}
 \end{center}
 \end{minipage}
@@ -126,7 +126,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \addlegendentry{\SI[per-mode=symbol]{1000}{\watt\per\meter\squared}}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Corrente de um painel \\\hspace{\textwidth} solar}
+\caption{Curva IxV (irradiância)}
 \label{figura_corrente_painel_irradiância}
 \end{center}
 \end{minipage}
@@ -144,15 +144,19 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \addlegendentry{\SI[per-mode=symbol]{1000}{\watt\per\meter\squared}}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Potência de um painel \\\hspace{\textwidth} solar}
+\caption{Curva PxV (irradiância)}
 \label{figura_potência_painel_irradiância}
 \end{center}
 \end{minipage}
 \end{figure}
 
+Como podemos ver pelas curvas de potência, existe um ponto de máximo, conhecido como \gls{mpp}, e que este ponto varia muito com a variação da temperatura do painel e um pouco com a variação da irradiância incidente, portanto para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
+
 \section{Modelo do Painel Real}
 
-Para encontrar os parâmetros do circuito equivalente foi usada a técnica de ajuste da curva, de forma que os parâmetros foram determinados de forma iterativa, visando minimizar o erro entre a curva do modelo e uma curva medida. Para melhorar a precisão do modelo foram determinadas três regiões de operação, nas quais os testes de bancada foram realizados. Os resultados estão na tabela \ref{parametros_modelo_painel_solar} e nas figuras \ref{figura_comparacao_150}, \ref{figura_comparacao_450} e \ref{figura_comparacao_700}. Foi possível manter o erro abaixo de \SI{5}{\percent} em toda a curva exceto em regiões próximas a tensão de circuito aberto, as quais não são relevantes para este trabalho.
+O painel utilizado aqui é composto por 4 ramos em paralelo formados por 10 células KXOB22-12X1F em série, totalizando 40 células solares em um painel.
+
+Para encontrar os parâmetros do circuito equivalente foi usada a técnica de ajuste da curva, de forma que os parâmetros foram determinados de forma iterativa, visando minimizar o erro entre a curva do modelo e uma curva medida. Para melhorar a precisão do modelo foram determinadas três regiões de operação, nas quais os testes de bancada serão realizados. Os resultados estão na tabela \ref{parametros_modelo_painel_solar} e nas figuras \ref{figura_comparacao_150}, \ref{figura_comparacao_450} e \ref{figura_comparacao_700}. Foi possível manter o erro abaixo de \SI{5}{\percent} em toda a curva exceto em regiões próximas a tensão de circuito aberto, as quais não são relevantes para este trabalho.
 
 \begin{table}[!htpb]
 \centering
@@ -185,7 +189,7 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \addlegendentry{Curva Medida}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Curvas para \SI[per-mode=symbol]{150}{\watt\per\square\meter}}
+\caption{Curvas para \SI[per-mode=symbol]{150}{\watt\per\square\meter}}
 \label{figura_comparacao_150}
 \end{center}
 \end{minipage}
@@ -199,7 +203,7 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \addlegendentry{Curva Medida}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Curvas para \SI[per-mode=symbol]{450}{\watt\per\square\meter}}
+\caption{Curvas para \SI[per-mode=symbol]{450}{\watt\per\square\meter}}
 \label{figura_comparacao_450}
 \end{center}
 \end{minipage}
@@ -215,12 +219,10 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \addlegendentry{Curva Medida}
 \end{axis}
 \end{tikzpicture}
-\caption[caption]{Curvas para \SI[per-mode=symbol]{700}{\watt\per\square\meter}}
+\caption{Curvas para \SI[per-mode=symbol]{700}{\watt\per\square\meter}}
 \label{figura_comparacao_700}
 \end{center}
 \end{figure}
-
-Como podemos ver pelas figuras, existe um ponto de máximo, conhecido como \gls{mpp}, e que este ponto varia muito com a variação da temperatura do painel e um pouco com a variação da irradiância incidente, portanto para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
 
 \section{\glsentryshort{mppt}}
 
@@ -262,7 +264,6 @@ O método da condutância incremental busca encontrar o \gls{mpp} utilizando-se 
 
 \begin{equation} \label{eq:derivada_potencia_tensao}
 \frac{dP}{dV} = \frac{d(IV)}{dV}
-= \frac{dI}{dV}\cdot V + I
 \end{equation}
 
 Aplicando a regra do produto no lado direito equação \ref{eq:derivada_potencia_tensao} obtemos:
@@ -298,3 +299,4 @@ Este algoritmo apresenta uma melhora em relação aos outros quando os paineis s
 
 Em sistemas mais modernos outros tipos de algoritmos também são utilizados. Dentre eles podemos citar redes neurais \cite{elobaid2012}, algoritmos genéticos \cite{daraban2013}, entre outros.
 
+Para este trabalho foi escolhido o algoritmo \gls{peo}, devido a sua eficiência aliada a sua grande simplicidade.
