@@ -1,0 +1,149 @@
+\chapter{Conversores CC-CC}
+
+Para possibilitar o controle do ponto de operação do painel são empregados conversores CC-CC com diferentes técnicas de controle. As mais comuns são o casamento de impedância entre a carga e a impedância vista pelos terminais do painel e o controle direto da tensão nos terminais do painel, quando a carga é um barramento com tensão constante.
+
+\section{Casamento de Impedância}
+
+A impedância vista pelos terminais do painel determina o ponto de operação, de acordo com a equação \ref{eq:impedancia_painel}. Por conta deste fator, dificilmente um painel opera no \gls{mpp} quando conectado a uma carga arbitrária em um ambiente arbitrário.
+
+\begin{equation}
+R = \frac{V}{I}
+\label{eq:impedancia_painel}
+\end{equation}
+
+Para exemplificar o funcionamento dos conversores CC-CC no controle da impedância vista pelos terminais do painel solar vamos considerar o caso de ser necessária tensão mais baixa na carga do que no painel, no qual é utilizado um conversor \textit{Buck}. O circuito deste sistema pode ser visto na figura \ref{circuito_com_conversor_buck}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+      to[nos, l = S] (2,3)
+(0,0) -- (2,0) to[diode, l = D]
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[capacitor, l = C] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[resistor, l=R\textsubscript{L}] (6,0) -- (4,0)
+(6,3) -- (8,3) to[open, v^=V\textsubscript{L}, o-o] (8,0) -- (6,0);
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+\end{center}
+\caption{Circuito com conversor \textit{Buck} para casamento de impedância}
+\label{circuito_com_conversor_buck}
+\end{figure}
+
+As equações \ref{eq:ganho_estatico_conversor_buck} e \ref{eq:ganho_estatico_conversor_buck_corrente} representam o ganho estático de tensão e corrente do conversor \textit{Buck}.
+
+\begin{equation} \label{eq:ganho_estatico_conversor_buck}
+\frac{V_{L}}{V_{pv}} = D
+\end{equation}
+
+\begin{equation}\label{eq:ganho_estatico_conversor_buck_corrente}
+\frac{I_{pv}}{I_{L}} = D
+\end{equation}
+
+Combinando estas duas equações na equação \ref{eq:relacao_impedancia_entrada_saida_buck} obtemos a relação entre a impedância de entrada e saída do conversor. Como a impedância de entrada é a impedância de saída do painel (carga do painel), podemos variar a razão cíclica D e consequentemente variar o ponto de operação do painel, de forma a sempre operar no ponto de máxima potência.
+
+\begin{equation} \label{eq:relacao_impedancia_entrada_saida_buck}
+\begin{aligned}
+R &= \frac{V_{pv}}{I_{pv}} \\
+&= \frac{V_{L}}{D} \cdot \frac{1}{I_{L}\cdot D} \\
+&= \frac{1}{D^{2}} \cdot \frac{V_{L}}{I_{L}} \\
+&= \frac{1}{D^{2}} \cdot R_{L}
+\end{aligned}
+\end{equation}
+
+\section{Controle Direto da Tensão}
+
+Para exemplificar o controle da tensão do painel solar e vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor boost. O circuito completo pode ser visto na figura \ref{circuito_completo}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+      to[inductor, l = L] (2,3)
+(2,3) to[nos, l = S] (2,0) -- (0,0)
+(2,3) to[diode, l = D] (4,3)
+(4,3) to[capacitor, l = C] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
+
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+\end{center}
+\caption{Circuito completo}
+\label{circuito_completo}
+\end{figure}
+
+Considerando todos os componentes ideais pode-se fazer a análise do circuito com o objetivo de se obter a relação entre a tensão da bateria e a tensão do painel a partir do fato de que a tensão média no indutor é nula.
+
+Na primeira etapa, com a chave fechada, temos o circuito da figura \ref{circuito_primeira_etapa}. A tensão no indutor nesta etapa é dada na equação \ref{tensao_indutor_primeira_etapa}
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+      to[inductor, l = L] (2,3)
+(2,3) to[short] (2,0) -- (0,0)
+(2,3) to[open] (4,3)
+(4,3) to[capacitor, l = C] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
+
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+\end{center}
+\caption{Circuito da Primeira Etapa}
+\label{circuito_primeira_etapa}
+\end{figure}
+
+\begin{equation} \label{tensao_indutor_primeira_etapa}
+V_{L} = V_{pv}
+\end{equation}
+
+Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, causando uma inversão na polaridade da tensão no indutor, de forma que o diodo é polarizado e passa a conduzir. O circuito desta etapa está na figura \ref{circuito_segunda_etapa}. A tensão no indutor é dada pela equação \ref{tensao_indutor_segunda_etapa}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+      to[inductor, l = L] (2,3)
+(2,3) to[capacitor, l = C] (2,0) -- (0,0)
+(2,3) to[short] (4,3)
+(4,3) to[battery, v = V\textsubscript{bat}] (4,0) -- (2,0);
+
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+\end{center}
+\caption{Circuito da Segunda Etapa}
+\label{circuito_segunda_etapa}
+\end{figure}
+
+\begin{equation} \label{tensao_indutor_segunda_etapa}
+V_{L} = V_{pv} - V_{bat}
+\end{equation}
+
+Considerando que a chave ficar fechada pelo tempo DT e aberta pelo tempo (1-D)T, onde D é a razão cíclica e T o período a tensão média no indutor é dada pela equação \ref{tensao_media_indutor}.
+
+\begin{equation} \label{tensao_media_indutor}
+\begin{aligned}
+V_{L} &= \frac{1}{T}\left(\int_{0}^{DT} V_{pv}\,dt + \int_{DT}^{T} V_{pv} - V_{bat}\,dt\right) \\
+&= \frac{1}{T}\left[V_{pv}\cdot DT + (V_{pv}-V_{bat})(T-DT)\right] \\
+&= V_{pv}\cdot D + V_{pv} - V_{pv}\cdot D - V_{bat} +V_{bat}\cdot D \\
+&= V_{pv} + V_{bat}(D-1)
+\end{aligned}
+\end{equation}
+
+Como a tensão média no indutor é nula temos:
+
+\begin{equation}
+\begin{gathered}
+V_{pv} + V_{bat}(D-1) = 0 \\
+V_{pv} = V_{bat}(1-D) 
+\end{gathered}
+\end{equation}
+
+Com isso vemos que é possível controlar a tensão do painel diretamente pelo controle da razão cíclica do conversor.
