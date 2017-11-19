@@ -48,6 +48,8 @@
 \makeglossaries
 \loadglsentries[\acronymtype]{glossary}
 
+\addto\captionsbrazil{\renewcommand\listfigurename{Lista de Figuras}}
+
 \begin{document}
 % Inicia parte pré-textual do documento capa, folha de rosto, folha de
 % aprovação, aprovação, resumo, lista de tabelas, lista de figuras, etc.
@@ -58,6 +60,11 @@
 \imprimirfichacatalografica%
 %\tableofcontents%
 \textual%
+
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
 
 \glsaddall 
 \printglossary[type=\acronymtype, title = Lista de Abreviaturas e Siglas]
@@ -79,6 +86,21 @@
 
 \begin{refsection}
 \include{loadModel}
+\printbibliography
+\end{refsection}
+
+\begin{refsection}
+\include{systemSimulation}
+\printbibliography
+\end{refsection}
+
+\begin{refsection}
+\include{systemTest}
+\printbibliography
+\end{refsection}
+
+\begin{refsection}
+\include{conclusions}
 \printbibliography
 \end{refsection}
 
