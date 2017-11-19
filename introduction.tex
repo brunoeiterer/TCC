@@ -12,9 +12,9 @@ Apesar disso, apenas alguns países e empresas conseguem desenvolver e lançar s
 
 Um dos novos desafios de desenvolvimento para \textit{Cubesats} é a limitação no orçamento, a qual torna necessária a realização de modelagens e simulações antes do desenvolvimento do produto, de forma a reduzir os custos. Outro possível desafio é a criação de muito lixo espacial, caso muitos \textit{cubesats} venham a ser lançados. Por fim, existe uma limitação na área disponível para captação e armazenamento de energia devido ao tamanho dos satélites\cite{Kalman2011}. Tendo em vista esta limitação no aspecto energético, é necessário projetar o sistema cuidadosamente de forma que a energia fornecida pelos painéis solares e armazenadas nas baterias seja suficiente para alimentar as cargas do sistema.
 
-Neste trabalho será apresentado o módulo de energia do \textit{cubesat} Floripa-Sat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada de energia até o consumo dos outros módulos.
+Neste trabalho será apresentado o módulo de energia do \textit{cubesat} Floripa-Sat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada de energia até o consumo dos outros módulos. Este módulo de energia tem como entrada de energia paineis solares, que são conectados através de um conversor \textit{boost} à duas baterias Li-Ion conectadas em série. Um algortimo \gls{mppt} é utilizado para operar os paineis com máxima eficiência. O sistema distribui a energia para os outros módulos do satélite (computador de bordo, sistema de comunicação e \textit{payloads}) em diferentes tensões através de conversores CC-CC integrados. Será realizada a modelagem do sistema, simulações e por fim testes com o sistema real, de forma que será possível validar a simulação para trabalhos futuros assim como verificar se o sistema projetado está de acordo com o necessário.
 
-\section{OBJETIVOS}
+\section{Objetios}
 
 Esta seção apresenta o objetivo geral e os objetivos específicos deste trabalho.
 
@@ -33,3 +33,15 @@ Modelar, simular e testar o funcionamento do módulo de energia do nanossatélit
 \end{itemize}
 
 \section{Organização do trabalho}
+
+A seção \ref{secao:painel solar} apresenta brevemente o funcionamento dos paineis solares, um circuito equivalente com componentes representando a conversão de energia solar em energia elétrica e as perdas, um modelo do painel real a ser utilizado no trabalho e por fim algoritmos para operação do painel com máxima eficiência.
+
+Na seção \ref{secao:conversores_cc_cc} são apresentadas duas maneiras de se utilizar conversores CC-CC no controle da operação de paineis solares e uma modelagem simplificada a ser utilizada na simulação do sistema.
+
+O próximo passo é a modelagem das cargas do sistema (seção \ref{secao:modelagem_cargas}), para possibilitar a verificação do funcionamento do sistema na simulação. Para tal foram utilizadas informações fornecidas nos \textit{datasheets} dos principais componentes de cada módulo do satélite (comunicação, computador de bordo, sistema de energia e \textit{payloads}).
+
+Nas seções \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema} são apresentados as simulações e testes realizados na bancada para verificar se o sistema projetado atende os requisitos de carga e também validar a simulação realizada em comparação com o sistema real.
+
+Ao final do trabalho são apresentadas as conclusões sobre o que foi proposto e desenvolvido (seção \ref{secao:conclusoes}).
+
+
