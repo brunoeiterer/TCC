@@ -71,7 +71,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsMinusTwentyFive};
 \addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsZero};
 \addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsTwentyFive};
@@ -89,7 +89,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = north west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = north west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsMinusTwentyFive};
 \addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsZero};
 \addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsTwentyFive};
@@ -115,7 +115,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = north east, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsTwoHundredFifty};
 \addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsFiveHundred};
 \addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {1}]{\solarPanelCharacteristicsSevenHundredFifty};
@@ -133,7 +133,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\watt}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = north west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsTwoHundredFifty};
 \addplot[mark = none, color = blue, dotted] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsFiveHundred};
 \addplot[mark = none, color = magenta, dashed] table[x index = {0}, y index = {2}]{\solarPanelCharacteristicsSevenHundredFifty};
@@ -178,7 +178,7 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, legend style = {font=\scriptsize}, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelOnePointFive};
 \addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredOnePointFive};
 \addlegendentry{Curva do Modelo}
@@ -192,7 +192,7 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelFive};
 \addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredFive};
 \addlegendentry{Curva do Modelo}
@@ -208,7 +208,7 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \begin{figure}[!htpb]
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, scale only axis]
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
 \addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelEightPointFive};
 \addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredEightPointFive};
 \addlegendentry{Curva do Modelo}
