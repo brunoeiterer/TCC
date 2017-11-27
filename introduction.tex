@@ -8,13 +8,23 @@ Em 1957 foi lançado pela União Soviética o primeiro satélite artificial, cha
 
 Atualmente existem mais de 4000 satélites operacionais em órbita. Eles são utilizados em várias aplicações muito comuns na vida moderna, como comunicação (internet, celulares, transmissões de TV), observação da terra, defesa e \gls{gps}\cite{spaceObjectsIndex2017}.
 
-Apesar disso, apenas alguns países e empresas conseguem desenvolver e lançar satélites, devido a sua complexidade e principalmente o elevadíssimo custo. Por conta disso, estão sendo desenvolvidos novos padrões para satélites, de forma a propiciar a oportunidade para pequenas empresas e até universidades de participarem do desenvolvimento espacial \cite{Baker2008}. Dentre estes novos padrões foi criado em 1999, por Jordi Puig-Suari e Bob Twiggs o \textit{Cubesat} \cite{Messier2015}, que é um satélite em forma de cubo com arestas de \SI{10}{\centi\metre} e massa menor ou igual a \SI{1.33}{\kilo\gram} \cite{cubesatDesignSpecification2014}.
+Apesar disso, apenas alguns países e empresas conseguem desenvolver e lançar satélites, devido a sua complexidade e principalmente o elevadíssimo custo. Por conta disso, estão sendo desenvolvidos novos padrões para desenvolvimento de satélites, de forma a propiciar a oportunidade para pequenas empresas e até universidades de participarem do desenvolvimento espacial \cite{Baker2008}. Dentre estes novos padrões foi criado em 1999, por Jordi Puig-Suari e Bob Twiggs o \textit{Cubesat} \cite{Messier2015}, que é um satélite em forma de cubo com arestas de \SI{10}{\centi\metre} e massa menor ou igual a \SI{1,33}{\kilo\gram} \cite{cubesatDesignSpecification2014}. A figura \ref{figura_cubesat} pode ser usada para se ter uma ideia do tamanho de um \textit{Cubesat}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\includegraphics[scale=0.5]{figures/cubesat.jpg}
+\caption{Referência de Tamanho de um Cubesat}
+\label{figura_cubesat}
+\end{center}
+\end{figure}
 
 Um dos novos desafios de desenvolvimento para \textit{Cubesats} é a limitação no orçamento, a qual torna necessária a realização de modelagens e simulações antes do desenvolvimento do produto, de forma a reduzir os custos. Outro possível desafio é a criação de muito lixo espacial, caso muitos \textit{cubesats} venham a ser lançados. Por fim, existe uma limitação na área disponível para captação e armazenamento de energia devido ao tamanho dos satélites\cite{Kalman2011}. Tendo em vista esta limitação no aspecto energético, é necessário projetar o sistema cuidadosamente de forma que a energia fornecida pelos painéis solares e armazenadas nas baterias seja suficiente para alimentar as cargas do sistema.
 
-Neste trabalho será apresentado o módulo de energia do \textit{cubesat} Floripa-Sat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada de energia até o consumo dos outros módulos. Este módulo de energia tem como entrada de energia paineis solares, que são conectados através de um conversor \textit{boost} à duas baterias Li-Ion conectadas em série. Um algortimo \gls{mppt} é utilizado para operar os paineis com máxima eficiência. O sistema distribui a energia para os outros módulos do satélite (computador de bordo, sistema de comunicação e \textit{payloads}) em diferentes tensões através de conversores CC-CC integrados. Será realizada a modelagem do sistema, simulações e por fim testes com o sistema real, de forma que será possível validar a simulação para trabalhos futuros assim como verificar se o sistema projetado está de acordo com o necessário.
+Os \textit{Cubesats} são, em geral, compostos por um Computador de Bordo, responsável por gerenciar os dados do satélite, um \gls{eps}, responsável por captar, armazenar e distribuir energia para os outros módulos, um Sistema de Comunicação, capaz de enviar e receber dados e comandos para a Terra e, por fim, os \textit{payloads}, que são a carga útil do sistema, ou seja, realizam a função principal do satélite.
 
-\section{Objetios}
+Neste trabalho será apresentado o \gls{eps} do \textit{Cubesat} Floripa-Sat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada até o consumo dos outros módulos. Este \gls{eps} tem como entrada de energia painéis solares, que são conectados através de um conversor \textit{boost} a duas baterias Li-Ion conectadas em série. Um algortimo \gls{mppt} é utilizado para operar os paineis com máxima eficiência. O sistema distribui a energia para os outros módulos do satélite (computador de bordo, sistema de comunicação e \textit{payloads}) em diferentes tensões através de conversores CC-CC integrados. Será realizada a modelagem do sistema, simulações e, por fim, testes com o sistema real, de forma que será possível validar a simulação para trabalhos futuros assim como verificar se o sistema projetado está de acordo com o necessário.
+
+\section{Objetivos}
 
 Esta seção apresenta o objetivo geral e os objetivos específicos deste trabalho.
 
@@ -26,7 +36,7 @@ Modelar, simular e testar o funcionamento do módulo de energia do nanossatélit
 \begin{itemize}
 \item Modelar os painéis solares
 \item Modelar o conversor boost da entrada
-\item Modelar o consumo do \textit{cubesat}
+\item Modelar o consumo do \textit{Cubesat}
 \item Simular o sistema completo
 \item Realizar testes com o sistema real
 \item Comparar os resultados reais com os simulados
@@ -40,7 +50,7 @@ Na seção \ref{secao:conversores_cc_cc} são apresentadas duas maneiras de se u
 
 O próximo passo é a modelagem das cargas do sistema (seção \ref{secao:modelagem_cargas}), para possibilitar a verificação do funcionamento do sistema na simulação. Para tal foram utilizadas informações fornecidas nos \textit{datasheets} dos principais componentes de cada módulo do satélite (comunicação, computador de bordo, sistema de energia e \textit{payloads}).
 
-Nas seções \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema} são apresentados as simulações e testes realizados na bancada para verificar se o sistema projetado atende os requisitos de carga e também validar a simulação realizada em comparação com o sistema real.
+Nas seções \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema}, respectivamente, são apresentados as simulações e testes realizados na bancada para verificar se o sistema projetado atende os requisitos de carga e também validar a simulação realizada em comparação com o sistema real.
 
 Ao final do trabalho são apresentadas as conclusões sobre o que foi proposto e desenvolvido (seção \ref{secao:conclusoes}).
 
