@@ -55,7 +55,7 @@ R &= \frac{V_{pv}}{I_{pv}} \\
 
 \section{Controle Direto da Tensão}
 
-Para exemplificar o controle da tensão do painel solar e vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor \textit{Boost}. O circuito completo pode ser visto na figura \ref{circuito_completo}.
+Para exemplificar o controle da tensão do painel solar vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor \textit{Boost}. O circuito completo pode ser visto na figura \ref{circuito_completo}.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -132,7 +132,7 @@ Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, 
 V_{L} = V_{pv} - V_{bat}
 \end{equation}
 
-Considerando que a chave ficar fechada pelo tempo DT e aberta pelo tempo (1-D)T, onde D é a razão cíclica e T o período a tensão média no indutor é dada pela equação \ref{tensao_media_indutor}.
+Considerando que a chave ficar fechada pelo tempo DT e aberta pelo tempo (1-D)T, onde D é a razão cíclica e T o período, a tensão média no indutor é dada pela equação \ref{tensao_media_indutor}.
 
 \begin{equation} \label{tensao_media_indutor}
 \begin{aligned}
@@ -154,4 +154,4 @@ V_{pv} = V_{bat}(1-D)
 
 Com isso vemos que é possível controlar a tensão do painel diretamente pelo controle da razão cíclica do conversor.
 
-Esta estratégia de controle direto com conversor \textit{Boost} será a implementada neste trabalho, devido ao fato de que os painéis trabalham em torno de \SI{5}{\volt} e as duas baterias em série apresentam uma tensão de \SI{5.4}{\volt} quando estão descarregadas ao limite inferior.
+Esta estratégia de controle direto com conversor \textit{Boost} será a implementada neste trabalho, devido ao fato de que os painéis trabalham em torno de \SI{5}{\volt} e as duas baterias em série apresentam uma tensão de \SI{5,4}{\volt} quando estão descarregadas ao limite inferior.
