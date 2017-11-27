@@ -15,6 +15,7 @@
 %---- Units Packages ----%
 
 \usepackage{siunitx}
+\sisetup{output-decimal-marker = {,}}
 
 %---- Drawing Packages ----%
 
@@ -31,11 +32,11 @@
 \usepackage[acronym, automake, nomain, nonumberlist]{glossaries-extra}
 
 % Preâmbulo
-\titulo{}
+\titulo{Modelagem, Simulação e Testes de um Sistema de Energia Aplicado a Nanossatélites}
 \autor{Bruno Vale Barbosa Eiterer}
-\data{\today}
+\data{2017}
 \instituicao{Universidade Federal de Santa Catarina}
-\local{Florianópolis, SC}
+\local{Florianópolis}
 \tipotrabalho{}
 \orientador{Prof. Eduardo Augusto Bezerra, Ph.D.}
 \coorientador{Leonardo Kessler Slongo, Ms.C.}
@@ -55,53 +56,77 @@
 % aprovação, aprovação, resumo, lista de tabelas, lista de figuras, etc.
 \pretextual%
 \imprimircapa%!
-\imprimirfolhaderosto*%
+%\imprimirfolhaderosto%
+\begin{center}
+Bruno Vale Barbosa Eiterer \\
+\vspace{\fill}
+\Large{Modelagem, Simulação e Testes de um Sistema de Energia Aplicado a Nanossatélites} \\
+\vspace{\fill}
+\end{center}
+\hfill
+\begin{minipage}{0.5\textwidth}
+\raggedright \small Trabalho de Conclusão de Curso submetido à Universidade Federal de Santa Catarina, como parte dos requisitos necessários para a obtenção do Grau de Bacherel em Engenharia Elétrica. \\
+Orientador: Prof. Eduardo Augusto Bezerra, Ph.D. \\
+Coorientador: Leonardo Kessler Slongo, Ms.C.
+\end{minipage}
+\vfill
+\begin{center}
+Florianópolis \\
+2017
+\end{center}
+
+
 \clearpage
 \imprimirfichacatalografica%
 %\tableofcontents%
 \textual%
 
 \clearpage
+\begin{center}
+\large\textbf{AGRADECIMENTOS}
+\end{center}
+À equipe do EPS do FloripaSat, Leonardo Slongo, Sara Vega e Túlio Gomes, por todos as discussões, testes e por todos os momentos passados juntos nesses quatro anos. Aos demais membros do FloripaSat, por todo o companheirismo. Aos meu pais, Berenice e Antonio Carlos, por todo seu apoio. Ao meu irmão, Caio, por toda a ajuda durante o curso. À minha irmã, Letícia, por todas as risadas, séries e músicas compartilhadas. Ao professor e orientador Eduardo Bezerra, pela orientação em todos os anos de trabalho. 
+
+\clearpage
+\begin{center}
+\large\textbf{RESUMO}
+\end{center}
+Atualmente satélites fazem parte do cotidiano das pessoas, ainda que de forma invisível. Apesar disso, o custo de desenvolvimento torna proibitivo o projeto realizado por grande parte de empresas e universidades. Por isso, foi criado o padrão \textit{Cubesat}, que introduziu o conceito de satélites em forma de cubo de \SI{10}{\centi\metre} de aresta. Este padrão apresenta novos desafios, principalmente na captação de energia, devido a pequena área disponível para painéis solares. Além disso, apesar do custo reduzido, os baixos orçamentos também são um desafio. Portanto é necessário realizar modelagens e simulações antes de se iniciar o projeto do satélite em si, de forma a reduzir os custos. Este trabalho busca modelar, simular e validar o sistema de energia de um nanossatélite, para facilitar projetos futuros.
+
+\noindent\textbf{Palavras-Chave:} Nanossatélites. Sistemas de Energia. Modelagem. Simulação.
+
+\clearpage
+\begin{center}
+\large\textbf{ABSTRACT}
+\end{center}
+Nowadays satellites are a daily part of people life, even if they are invisible. In spite of that, the development cost prohibits projects for the majority of companies and universities. Because of that it was created the Cubesat standard, which introduced the concept of \SI{10}{\centi\metre} edge cube satellites. This standard has new challenges, specially on energy harvesting, due to the small area available for solar panels. Besides that, in spite of the reduced cost, the tight budgets are also a challenge.  Because of that it is necessary to model and perform simulations before starting the real project, to reduce the costs. This work  presents modelling, simulation and validation of a nanossatelite energy system, to make future projects easier.
+
+\noindent\textbf{Keywords:} Nanossatelites. Energy Systems. Modelling. Simulation.
+
+\clearpage
 \listoffigures
 \clearpage
 \listoftables
-
 \glsaddall 
 \printglossary[type=\acronymtype, title = Lista de Abreviaturas e Siglas]
+\clearpage
+\setcounter{tocdepth}{3} % + subsubsections
+\tableofcontents
 
-\begin{refsection}
 \include{introduction}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{solarPanelModel}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{DC_DCConverters}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{loadModel}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{systemSimulation}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{systemTest}
-\printbibliography
-\end{refsection}
 
-\begin{refsection}
 \include{conclusions}
+
 \printbibliography
-\end{refsection}
 
 \end{document}
