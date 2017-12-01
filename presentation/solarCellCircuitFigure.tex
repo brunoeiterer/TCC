@@ -1,0 +1,23 @@
+\documentclass{standalone}
+
+\usepackage{circuitikz}
+
+\begin{document}
+
+\begin{circuitikz} [american]
+\draw
+(0,0) to[I, l = I\textsubscript{ph}] (0,3) -- (2,3)
+      to[diode, l = D] (2,0) -- (0,0)
+(2,3) to[short] (4,3)
+(4,3) to[resistor, l = R\textsubscript{p}] (4,0) -- (2,0)
+(4,3) to [short] (4.5,3)
+(4.5,3) to[resistor, l = R\textsubscript{s}] (6.5,3)
+	  to[short, -o] (7,3)
+(4,0) to[short, -o] (7,0)
+(7,3) to[open, v=V] (7,0);
+\draw[->] (6.25, 3.25) -- (7,3.25) node[midway, above] {I};
+\draw[->] (2.25, 2.75) -- (2.25, 2) node[midway, right] {I\textsubscript{D}};
+\draw[->] (4.25, 2.75) -- (4.25, 2) node[midway, right] {I\textsubscript{R\textsubscript{p}}};
+\end{circuitikz}
+
+\end{document}

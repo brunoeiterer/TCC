@@ -1,0 +1,20 @@
+\documentclass{standalone}
+
+\usepackage{circuitikz}
+
+\begin{document}
+
+\begin{circuitikz} [american]
+\draw
+(0,0) to[pvsource, l = V\textsubscript{pv}] (0,3)
+(0,3) to[short] (2,3)
+(2,3) to[capacitor, l = C\textsubscript{in}] (2,0) -- (0,0)
+(2,3) to[inductor, l = L] (4,3)
+(4,3) to[capacitor, l = C \textsubscript{out}] (4,0) -- (2,0)
+(4,3) to[short] (6,3)
+(6,3) to[battery, v = V\textsubscript{bat}] (6,0) -- (4,0);
+
+\draw[->] (-0.25, 2) -- (-0.25, 2.75) node[midway, left] {I\textsubscript{pv}};
+\end{circuitikz}
+
+\end{document}
