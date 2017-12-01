@@ -6,7 +6,7 @@ O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, 
 
 Em uma célula real existem perdas causadas por aquecimento no movimento dos elétrons, por impurezas no material que geram novos níveis de energia dentro do \textit{bandgap} e também por recombinação na junção p-n \cite{blakers2013}. Portanto para representar as células solares através de um circuito equivalente é necessário uma fonte de corrente associada com alguns componentes que representam as perdas.
 
-O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente é composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser visto na figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
+O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente é composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser visto na Figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -150,7 +150,7 @@ Quando várias células são conectadas em série e/ou em paralelo é formado um
 \end{minipage}
 \end{figure}
 
-Como podemos ver nas curvas de potência, existe um ponto de máximo, conhecido como \gls{mpp}, e que este ponto varia mais com a variação da temperatura do painel do que com a variação da irradiância incidente. Devido a estas variações, para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
+Como podemos ver nas curvas de potência, existe um ponto de máximo, conhecido como \gls{mpp}, e que a tensão correspondente a este ponto varia mais com a variação da temperatura do painel do que com a variação da irradiância incidente. Devido a estas variações, para operar o painel sempre com a maior eficiência é necessário aplicar uma técnica de controle conhecida como \gls{mppt} \cite{ahmed2016}.
 
 \section{Modelo do Painel Real}
 
@@ -230,7 +230,7 @@ Em geral, é muito custoso determinar pontos de operação possíveis em quantid
 
 \subsection{\glsentrylong{peo}}
 
-O algoritmo \gls{peo} funciona de acordo com o fluxograma da figura \ref{fluxograma_algoritmo_peo}, no qual n é a iteração atual e P é a potência do painel. Primeiramente é gerada uma perturbação em sentido arbitrário no ponto de operação do painel. Em seguida, verifica-se se a potência entregue aumentou ou diminiu em relação a iteração anterior. Caso tenha aumentado mantém-se o sentido da perturbação aplicada, caso contrário o sentido é invertido. Desta forma o sistema irá caminhar na curva de potência até atingir o \gls{mpp}, sobre o qual ficará oscilando. Com isto evidencia-se um importante \textit{trade-off}: aumentar o passo da perturbação aumenta a velocidade com que o sistema atinge o \gls{mpp}, mas ao mesmo tempo faz com que a oscilação fique mais longe do \gls{mpp}, portanto é necessário encontrar um passo que satisfaça todos os requisitos de projeto.
+O algoritmo \gls{peo} funciona de acordo com o fluxograma da Figura \ref{fluxograma_algoritmo_peo}, no qual n é a iteração atual e P é a potência do painel. Primeiramente é gerada uma perturbação em sentido arbitrário no ponto de operação do painel. Em seguida, verifica-se se a potência entregue aumentou ou diminiu em relação a iteração anterior. Caso tenha aumentado mantém-se o sentido da perturbação aplicada, caso contrário o sentido é invertido. Desta forma o sistema irá caminhar na curva de potência até atingir o \gls{mpp}, sobre o qual ficará oscilando. Com isto evidencia-se um importante \textit{trade-off}: aumentar o passo da perturbação aumenta a velocidade com que o sistema atinge o \gls{mpp}, mas ao mesmo tempo faz com que a oscilação fique mais longe do \gls{mpp}, portanto é necessário encontrar um passo que satisfaça todos os requisitos de projeto.
 
 A grande vantagem deste algoritmo é a sua simplicidade na implementação, que aliado com a sua alta eficiência quando implementado corretamente torna-o um dos algoritmos mais utilizados. A principal desvantagem é que este algoritmo demora a responder a variações grandes no ambiente. \cite{ngan2011}.
 

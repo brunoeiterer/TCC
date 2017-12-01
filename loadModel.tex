@@ -31,7 +31,7 @@ Aqui foram considerados apenas os consumos constantes, ou seja, o aumento no con
 
 \section{Rádios e Amplificadores de Potência}
 
-Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do que em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica desativado. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Cada rádio envia periodicamente dados para a Terra, com períodos de transmissão e o tempo ativo diferentes. Além disso existe a possibilidade de a estação terrestre solicitar o envio de dados através de telecomandos. Neste caso, a transmissão fica ativa até que todos os dados solicitados sejam enviados. Para modelar este comportamento será considerada uma janela de 10 minutos por órbita, o que simula um hipotético pior caso (em termos de energia consumida).
+Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do que em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica ativo somente durante transmissões. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Cada rádio envia periodicamente dados para a Terra, com períodos de transmissão e o tempo ativo diferentes. Além disso, existe a possibilidade de a estação terrestre solicitar o envio de dados através de telecomandos. Neste caso, a transmissão fica ativa até que todos os dados solicitados sejam enviados. Para modelar este comportamento será considerada uma janela de 10 minutos por órbita, o que simula um hipotético pior caso (em termos de energia consumida).
 
 \begin{table}[!htpb]
 \centering
@@ -77,7 +77,7 @@ Total & - & - & - \\ \hline
 \label{consumo_eps}
 \end{table}
 
-O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios. O aquecedor das baterias só é necessário nos momentos da órbita onde há eclipse, portanto assim será considerado para a modelagem.
+O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios. O aquecedor das baterias só é necessário nos momentos da órbita onde há eclipse (um terço da órbita), portanto assim será considerado para a modelagem.
 
 \section{\textit{Payloads}}
 

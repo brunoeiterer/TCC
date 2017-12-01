@@ -11,7 +11,7 @@ R = \frac{V}{I}
 \label{eq:impedancia_painel}
 \end{equation}
 
-Para exemplificar o funcionamento dos conversores CC-CC no controle da impedância vista pelos terminais do painel solar vamos considerar o caso de ser necessária tensão mais baixa na carga do que no painel, no qual é utilizado um conversor \textit{Buck}. O circuito deste sistema pode ser visto na figura \ref{circuito_com_conversor_buck}.
+Para exemplificar o funcionamento dos conversores CC-CC no controle da impedância vista pelos terminais do painel solar vamos considerar o caso de ser necessária tensão mais baixa na carga do que no painel, no qual é utilizado um conversor \textit{Buck}. O circuito deste sistema pode ser visto na Figura \ref{circuito_com_conversor_buck}.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -55,7 +55,7 @@ R &= \frac{V_{pv}}{I_{pv}} \\
 
 \section{Controle Direto da Tensão}
 
-Para exemplificar o controle da tensão do painel solar vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor \textit{Boost}. O circuito completo pode ser visto na figura \ref{circuito_completo}.
+Para exemplificar o controle da tensão do painel solar vamos considerar o caso em que a tensão na saída é maior do que na entrada, no qual é utilizado um conversor \textit{Boost}. O circuito completo pode ser visto na Figura \ref{circuito_completo}.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -80,7 +80,7 @@ Para exemplificar o controle da tensão do painel solar vamos considerar o caso 
 
 Considerando todos os componentes ideais pode-se fazer a análise do circuito com o objetivo de se obter a relação entre a tensão da bateria e a tensão do painel a partir do fato de que a tensão média no indutor é nula.
 
-Na primeira etapa, com a chave fechada, temos o circuito da figura \ref{circuito_primeira_etapa}. A tensão no indutor nesta etapa é dada na equação \ref{tensao_indutor_primeira_etapa}
+Na primeira etapa, com a chave fechada, temos o circuito da Figura \ref{circuito_primeira_etapa}. A tensão no indutor nesta etapa é dada na equação \ref{tensao_indutor_primeira_etapa}
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -107,7 +107,7 @@ Na primeira etapa, com a chave fechada, temos o circuito da figura \ref{circuito
 V_{L} = V_{pv}
 \end{equation}
 
-Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, causando uma inversão na polaridade da tensão no indutor, de forma que o diodo é polarizado e passa a conduzir. O circuito desta etapa está na figura \ref{circuito_segunda_etapa}. A tensão no indutor é dada pela equação \ref{tensao_indutor_segunda_etapa}.
+Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, causando uma inversão na polaridade da tensão no indutor, de forma que o diodo é polarizado e passa a conduzir. O circuito desta etapa está na Figura \ref{circuito_segunda_etapa}. A tensão no indutor é dada pela equação \ref{tensao_indutor_segunda_etapa}.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -132,7 +132,7 @@ Na segunda etapa a chave é aberta, com isto a corrente no indutor é reduzida, 
 V_{L} = V_{pv} - V_{bat}
 \end{equation}
 
-Considerando que a chave ficar fechada pelo tempo DT e aberta pelo tempo (1-D)T, onde D é a razão cíclica e T o período, a tensão média no indutor é dada pela equação \ref{tensao_media_indutor}.
+Considerando que a chave fica fechada pelo tempo DT e aberta pelo tempo (1-D)T, onde D é a razão cíclica e T o período, a tensão média no indutor é dada pela equação \ref{tensao_media_indutor}.
 
 \begin{equation} \label{tensao_media_indutor}
 \begin{aligned}

@@ -1,21 +1,9 @@
 \chapter{Conclusões} \label{secao:conclusoes}
 
-Para quantificar a diferença de energia entre as cargas vamos integrar a potência dos painéis e a potência na bateria, onde o sinal negativo indica que a potência está saindo da bateria.
-
-\begin{equation}
-\int_{0}^{17390} P_{pv}(t) dt = \SI{13.77}{\kilo\joule}
-\end{equation} 
-
-\begin{equation}
-\int_{0}^{17390} P_{bat}(t) dt = \SI{-22.86}{\kilo\joule}
-\end{equation}
-
-Em primeira análise a energia consumida pelas cargas é maior do que a entrege pelos painéis, porém a irradiância utilizada nos testes não corresponde a irradiância incidente do sol no espaço. Na verdade o valor utilizado foi o máximo possível obtido com a bancada disponível, porém representa apenas aproximadamente metade do valor real, o que já tornaria a entrada de energia maior do que o consumo. Portanto, pode-se concluir que o sistema está projetado de forma adequada para atender as cargas solicitadas.
-
-Em relação a modelagem e simulação realizada, podemos considerar que os painéis estão próximos o suficiente do real, como demonstrado primeiramente na seção \ref{secao:painel solar} e depois nas seções \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema}. Uma possível melhoria futura seria separar cada painel na simulação, de forma que cada um teria seu controle \gls{mppt} próprio, aproximando assim a simulação da realidade. Isto ainda não foi realizado pelo motivo de que cada \gls{mppt} introduz um \textit{Loop} Algébrico (\textit{Algebraic Loop}) na simulação, e sua solução requer métodos mais robustos e melhor controle da ferramenta.
+Em relação a modelagem e simulação realizada, podemos considerar que os painéis estão próximos o suficiente do real, como demonstrado primeiramente no capítulo \ref{secao:painel solar} e depois nos capítulos \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema}. Uma possível melhoria futura seria separar cada painel na simulação, de forma que cada um teria seu controle \gls{mppt} próprio, aproximando assim a simulação da realidade. Isto ainda não foi realizado pelo motivo de que cada \gls{mppt} introduz um \textit{Loop} Algébrico (\textit{Algebraic Loop}) na simulação, e sua solução requer métodos mais robustos e melhor controle da ferramenta.
 
 O modelo das cargas foi utilizado tanto na simulação quanto no teste real. Esta decisão foi tomada baseado no fato de que a simulação ainda não havia sido validada. Portanto não seria possível verificar quais são as falhas na simulação caso o sistema completo fosse utilizado. A validação deste modelo será realizada em trabalhos futuros.
 
 Outro ponto interessante é utilizar um modelo físico do conversor \textit{Boost} no lugar da fonte de tensão controlada para facilitar a simulação de não-idealidades. Apesar de que o modelo representou bem o controle da tensão do painel na simulação, as perdas introduzidas pelo conversor no teste real não apareceram na simulação, o que gerou uma discrepância nos resultados. Esta melhoria também será realizada em trabalhos futuros.
 
-De modo geral, pode-se considerar que os objetivos do trabalho foram alcançados, sendo que o sistema foi validado e agora existem um modelo e uma simulação que podem ser utilizados para se ter uma idéia geral do funcionamento do sistema, assim como podem ser utilizados para projetos de novos sistemas no futuro, desde que seja utilizada com cautela.
+De modo geral, pode-se considerar que os objetivos do trabalho foram alcançados, sendo que o sistema foi validado e agora existem um modelo e uma simulação que podem ser utilizados para se ter uma idéia geral do funcionamento do sistema, assim como podem ser utilizados para projetos de novos sistemas no futuro.
