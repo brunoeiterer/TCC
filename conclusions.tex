@@ -2,6 +2,8 @@
 
 Em relação a modelagem e simulação realizada, podemos considerar que os painéis estão próximos o suficiente do real, como demonstrado primeiramente no capítulo \ref{secao:painel solar} e depois nos capítulos \ref{secao:simulacao_sistema} e \ref{secao:teste_sistema}. Uma possível melhoria futura seria separar cada painel na simulação, de forma que cada um teria seu controle \gls{mppt} próprio, aproximando assim a simulação da realidade. Isto ainda não foi realizado pelo motivo de que cada \gls{mppt} introduz um \textit{Loop} Algébrico (\textit{Algebraic Loop}) na simulação, e sua solução requer métodos mais robustos e melhor controle da ferramenta.
 
+Outro ponto em relação a simulação é considerar a irradiância diferente para cada painel, devido ao posicionamento dos painéis na bancada e a distribuição da irradiância pelos leds, que não é uniforme.
+
 O modelo das cargas foi utilizado tanto na simulação quanto no teste real. Esta decisão foi tomada baseado no fato de que a simulação ainda não havia sido validada. Portanto não seria possível verificar quais são as falhas na simulação caso o sistema completo fosse utilizado. A validação deste modelo será realizada em trabalhos futuros.
 
 Outro ponto interessante é utilizar um modelo físico do conversor \textit{Boost} no lugar da fonte de tensão controlada para facilitar a simulação de não-idealidades. Apesar de que o modelo representou bem o controle da tensão do painel na simulação, as perdas introduzidas pelo conversor no teste real não apareceram na simulação, o que gerou uma discrepância nos resultados. Esta melhoria também será realizada em trabalhos futuros.

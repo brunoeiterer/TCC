@@ -1,12 +1,18 @@
 \chapter{Painel Solar} \label{secao:painel solar}
 
+\section{Introdução}
+
+Este capítulo apresentará uma breve introdução sobre o funcionamento de células solares, explicando o efeito fotovoltaico, seguido de um circuito equivalente utilizado para modelar um painel real, e, por fim, algoritmos utilizados para operar os painéis sempre com máxima eficiência.
+
+\section{Como Funcionam as Células Solares}
+
 O funcionamento de células solares é baseado no efeito fotovoltaico, ou seja, a geração de tensão ou corrente elétrica a partir da incidência de luz. O efeito fotovoltaico ocorre da seguinte maneira: em um semicondutor ideal existem dois níveis de energia que elétrons podem ser excitados, representados pela camada de valência, com energia baixa, e a camada de condução, com energia mais alta. Entre estas duas camadas existe o chamado \textit{bandgap}, uma região com níveis de energia que os elétrons não podem assumir. Quando um fóton entra em contato com o semicondutor os elétrons na camada de valência absorvem sua energia e passam para a camada de condução, gerando uma corrente elétrica. Como não é possível que os elétrons possuam níveis intermediários de energia fótons que não possuam energia superior ao \textit{bandgap} não são absorvidos e passam sem interagir com a célula.\cite{jager2014}.
 
 \section{Circuito Equivalente de um Painel Solar}
 
 Em uma célula real existem perdas causadas por aquecimento no movimento dos elétrons, por impurezas no material que geram novos níveis de energia dentro do \textit{bandgap} e também por recombinação na junção p-n \cite{blakers2013}. Portanto para representar as células solares através de um circuito equivalente é necessário uma fonte de corrente associada com alguns componentes que representam as perdas.
 
-O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente é composto por uma fonte de corrente I\textsubscript{ph}, um diodo D, uma resistência paralela R\textsubscript{p} e uma resistência série R\textsubscript{s}. Este circuito pode ser visto na Figura \ref{modelo_celula_solar}, onde I\textsubscript{ph} é a corrente fotogerada do painel, I\textsubscript{D} é a corrente do diodo, I\textsubscript{R\textsubscript{p}} é a corrente na resistência paralela, I é a corrente da célula e V é a tensão da célula.
+O modelo para uma célula aqui utilizado é apresentado em \cite{erdem2013}. O circuito equivalente é composto por uma fonte de corrente \gls{Iph}, um diodo D, uma resistência paralela \gls{Rp} e uma resistência série \gls{Rs}. Este circuito pode ser visto na Figura \ref{modelo_celula_solar}, onde \gls{Iph} é a corrente fotogerada do painel, \gls{ID} é a corrente do diodo, \gls{IRp} é a corrente na resistência paralela, \gls{I} é a corrente da célula e \gls{V} é a tensão da célula.
 
 \begin{figure}[!htpb]
 \begin{center}
@@ -36,19 +42,19 @@ A partir da análise do circuito equivalente, temos a seguinte relação entre a
 I = I_{ph} - I_{D} - I_{R_{p}}
 \end{equation}
 
-Por simplicidade e sem perda de precisão I\textsubscript{ph} pode ser determinada diretamente pela corrente de curto-circuito I\textsubscript{sc} do painel, respeitando-se a dependência com a irradiância E e a temperatura da célula T\textsubscript{c} (equação \ref{eq:corrente_fotogerada}), assim pode-se obtê-la diretamente dos \textit{datasheets} fornecidos pelos fabricantes. 
+Por simplicidade e sem perda de precisão \gls{Iph} pode ser determinada diretamente pela corrente de curto-circuito \gls{Isc} do painel, respeitando-se a dependência com a irradiância \gls{E} e a temperatura da célula \gls{Tc} (equação \ref{eq:corrente_fotogerada}), assim pode-se obtê-la diretamente dos \textit{datasheets} fornecidos pelos fabricantes. 
 
 \begin{equation} \label{eq:corrente_fotogerada}
 I_{ph} = I_{sc}\cdot \frac{E}{E_{0}} \cdot [1 + \Delta_{I_{sc}}(T_{c} - T_{0})]
 \end{equation}
 
-A corrente no diodo é dada pela equação \ref{eq:corrente_diodo}, onde I\textsubscript{o} é a corrente de saturação quando não há iluminação sobre a célula, q é a carga de um elétron, n é o fator de idealidade, k é a constante de Boltzmann e T\textsubscript{c} é a temperatura da célula \cite{bellia2014}.
+A corrente no diodo é dada pela equação \ref{eq:corrente_diodo}, onde \gls{Io} é a corrente de saturação quando não há iluminação sobre a célula, \gls{q} é a carga de um elétron, \gls{n} é o fator de idealidade, \gls{k} é a constante de Boltzmann e \gls{Tc} é a temperatura da célula \cite{bellia2014}.
 
 \begin{equation} \label{eq:corrente_diodo}
 I_{D} = I_{o}(e^{-\frac{q(V+I\cdot R_{s})}{nkT_{c}}}-1)
 \end{equation}
 
-A corrente no resistor R\textsubscript{p} pode ser obtida através da equação \ref{eq:corrente_Rp}, conhecida como Lei de Ohm.
+A corrente no resistor \gls{Rp} pode ser obtida através da equação \ref{eq:corrente_Rp}, conhecida como Lei de Ohm.
 
 \begin{equation} \label{eq:corrente_Rp}
 I_{R_{p}} = \frac{V+I\cdot R_{s}}{R_{p}}
@@ -154,56 +160,70 @@ Como podemos ver nas curvas de potência, existe um ponto de máximo, conhecido 
 
 \section{Modelo do Painel Real}
 
-O painel utilizado aqui é composto por 4 ramos em paralelo formados por 10 células KXOB22-12X1F em série, totalizando 40 células solares em um painel.
+Os painéis aqui utilizados são compostos por 4 ramos em paralelo formados por 10 células KXOB22-12X1F em série, totalizando 40 células solares em um painel. Este é o número máximo de células em um painel das dimensões de um \textit{cubesat}.
 
-Para encontrar os parâmetros do circuito equivalente foi usada uma técnica de ajuste manual da curva, de forma que os parâmetros foram determinados de forma iterativa, visando minimizar o erro entre a curva do modelo e uma curva medida. Para melhorar a precisão do modelo foram determinadas três regiões de operação, baseados em três regiões de irradiância, nas quais os testes de bancada serão realizados. Os resultados estão na tabela \ref{parametros_modelo_painel_solar} e nas figuras \ref{figura_comparacao_150}, \ref{figura_comparacao_450} e \ref{figura_comparacao_700}. Foi possível manter o erro abaixo de \SI{5}{\percent} em toda a curva, exceto em regiões próximas a tensão de circuito aberto, as quais não são relevantes para este trabalho.
+O primeiro passo para a obtenção do modelo do painel foi levantar curvas experimentais do painel utilizado. Para tal, foi utilizado o canal quatro do analisador de potência N6705B, o qual pode funcionar como carga eletrônica, de forma que é possível aplicar uma tensão positiva nos terminais do painel e drenar a corrente resultante. Uma rampa de tensão foi aplicada ao painel e os valores de corrente correspondentes foram medidos. Para melhorar a precisão do modelo foram determinadas três regiões de operação, baseados em três regiões de irradiância, nas quais os testes de bancada serão realizados. Assim três curvas experimentais foram obtidas.
+
+Para encontrar os parâmetros do circuito equivalente foi usada uma técnica de ajuste manual da curva, de forma que os parâmetros foram determinados de forma iterativa, visando minimizar o erro entre a curva do modelo e uma curva medida. Para tal, foi criada uma interface gráfica no Matlab (Figura \ref{figura_interface_grafica}). Esta interface utiliza o módulo \textit{uicontrol}, que gera quatro \textit{sliders} para controlar os parâmetros \gls{Rs}, \gls{Io}, \gls{Rp} e \gls{n} (identificados como R\textsubscript{s}, I\textsubscript{r}, R\textsubscript{sh} e A, devido a nomenclatura em inglês). Para modificar o valor de um parâmetro, pode-se deslizar o ou clicar nas setas nas extremidades dos \textit{sliders}. A cada mudança de um parâmetro a curva do modelo e a curva de erro são atualizadas, de modo que é possível verificar se houve uma melhora com a modificação realizada.
+
+\begin{sidewaysfigure}
+
+\begin{center}
+\includegraphics[scale=0.8]{figures/gui.pdf}
+\caption{Interface Gráfica Para Ajuste da Curva}
+\label{figura_interface_grafica}
+\end{center}
+
+\end{sidewaysfigure}
+
+Os resultados estão na tabela \ref{parametros_modelo_painel_solar} e nas figuras \ref{figura_comparacao_150}, \ref{figura_comparacao_450} e \ref{figura_comparacao_700}. Foi possível manter o erro abaixo de \SI{5}{\percent} em toda a curva, exceto em regiões próximas a tensão de circuito aberto, as quais não são relevantes para este trabalho.
 
 \begin{table}[!htpb]
 \centering
 \begin{tabular}{c c c c c}
 \\ \hline
-Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] & R\textsubscript{sh} [\SI{}{\ohm}] & I\textsubscript{r} [\SI{}{\nano\ampere}] & n \\ \hline \hline
-150 & 3,22999 & 402,2 & 559 & 1,8 \\
-450 & 0,15 & 202,402 & 577 & 1,8 \\
-700 & 0,15 & 143,602 & 559 & 1,78 \\ \hline
+Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] & R\textsubscript{p} [\SI{}{\ohm}] & I\textsubscript{o} [\SI{}{\nano\ampere}] & n \\ \hline \hline
+500 & 0,15 & 599,602 & 154 & 2 \\
+600 & 0,15 & 229,601 & 154 & 2 \\
+700 & 0,15 & 140,801 & 154 & 2 \\ \hline
 \end{tabular}
 \caption{Parâmetros do Modelo do Painel Solar}
 \label{parametros_modelo_painel_solar}
 \end{table}
 
-\pgfplotstableread[col sep = comma]{figures/solarModelCurve1-5A.csv}\solarPanelModelOnePointFive
-\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve1-5A.csv}\solarPanelMeasuredOnePointFive
-\pgfplotstableread[col sep = comma]{figures/solarModelCurve5A.csv}\solarPanelModelFive
-\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve5A.csv}\solarPanelMeasuredFive
-\pgfplotstableread[col sep = comma]{figures/solarModelCurve8-5A.csv}\solarPanelModelEightPointFive
-\pgfplotstableread[col sep = comma]{figures/solarMeasuredCurve8-5A.csv}\solarPanelMeasuredEightPointFive
+\pgfplotstableread[col sep = comma]{figures/VLDO-6A-model.csv}\solarPanelModelSix
+\pgfplotstableread[col sep = comma]{figures/VLDO-6A.csv}\solarPanelMeasuredSix
+\pgfplotstableread[col sep = comma]{figures/VLDO-7-5A-model.csv}\solarPanelModelSevenPointFive
+\pgfplotstableread[col sep = comma]{figures/VLDO-7-5A.csv}\solarPanelMeasuredSevenPointFive
+\pgfplotstableread[col sep = comma]{figures/VLDO-9A-model.csv}\solarPanelModelNine
+\pgfplotstableread[col sep = comma]{figures/VLDO-9A.csv}\solarPanelMeasuredNine
 
 \begin{figure}[!htpb]
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, legend style = {font=\scriptsize}, scale only axis]
-\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelOnePointFive};
-\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredOnePointFive};
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, scaled y ticks={base 10:2}, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, scale = 0.5, legend style = {font=\scriptsize}, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelSix};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredSix};
 \addlegendentry{Curva do Modelo}
 \addlegendentry{Curva Medida}
 \end{axis}
 \end{tikzpicture}
-\caption{Curvas para \SI[per-mode=symbol]{150}{\watt\per\square\meter}}
+\caption{Curvas para \SI[per-mode=symbol]{500}{\watt\per\square\meter}}
 \label{figura_comparacao_150}
 \end{center}
 \end{minipage}
 \begin{minipage}{.5\textwidth}
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
-\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelFive};
-\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredFive};
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, scaled y ticks={base 10:2}, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelSevenPointFive};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredSevenPointFive};
 \addlegendentry{Curva do Modelo}
 \addlegendentry{Curva Medida}
 \end{axis}
 \end{tikzpicture}
-\caption{Curvas para \SI[per-mode=symbol]{450}{\watt\per\square\meter}}
+\caption{Curvas para \SI[per-mode=symbol]{600}{\watt\per\square\meter}}
 \label{figura_comparacao_450}
 \end{center}
 \end{minipage}
@@ -212,9 +232,9 @@ Irradiância [\SI{}{\watt\per\square\metre}] & R\textsubscript{s} [\SI{}{\ohm}] 
 \begin{figure}[!htpb]
 \begin{center}
 \begin{tikzpicture}[trim axis left, trim axis right]
-\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
-\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelEightPointFive};
-\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredEightPointFive};
+\begin{axis}[xlabel = {V [\SI{}{\volt}]}, ylabel = {I [\SI{}{\ampere}]}, ymin = 0, scaled y ticks={base 10:2}, yticklabel style={/pgf/number format/fixed}, xtick distance=1, legend pos = south west, legend style = {font=\scriptsize}, scale = 0.5, scale only axis]
+\addplot[mark = none, color = cyan] table[x index = {0}, y index = {1}]{\solarPanelModelNine};
+\addplot[mark = none, color = red, dashed] table[x index = {0}, y index = {1}]{\solarPanelMeasuredNine};
 \addlegendentry{Curva do Modelo}
 \addlegendentry{Curva Medida}
 \end{axis}
@@ -299,4 +319,8 @@ Este algoritmo apresenta uma melhora em relação aos outros quando os paineis s
 
 Em sistemas mais modernos outros tipos de algoritmos também são utilizados. Dentre eles podemos citar redes neurais \cite{elobaid2012}, algoritmos genéticos \cite{daraban2013}, entre outros.
 
-Para este trabalho foi escolhido o algoritmo \gls{peo}, devido a sua eficiência aliada a sua grande simplicidade.
+Para este trabalho foi escolhido o algoritmo \gls{peo}, devido a sua eficiência aliada a sua grande simplicidade. O algoritmo foi implementado em um processador MSP430F6659. Devido a limitação no \textit{clock} deste processador, apenas trinta e dois passos de razão cíclica são possíveis.
+
+\section{Conclusões}
+
+Com o que foi desenvolvido e exposto neste capítulo foi possível entender o princípio básico de funcionamento das células solares. Além disso, foi apresentada uma interface gráfica para obter valores otimizados para os parâmetros do circuito equivalente das células. Também foi apresentada uma discussão sobre algoritmos \gls{mppt}, cada um com suas vantagens e desvantagens. Com isso os modelos necessários para uma simulação de painéis solares foram obtidos.

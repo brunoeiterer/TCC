@@ -24,17 +24,24 @@ Os \textit{Cubesats} são, em geral, compostos por um Computador de Bordo, respo
 
 Os \gls{eps} usam como principal entrada de energia painéis solares, que são a fonte mais abundante no espaço. Outra maneira de se captar energia é através de termogeradores. Para armazenar a energia são usadas geralmente bateris Li-Ion, porém alguns projetos utilizam supercapacitores ou baterias de composição diferente.
 
-Neste trabalho será apresentado o \gls{eps} do \textit{Cubesat} FloripaSat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada até o consumo dos outros módulos. Este \gls{eps} tem como entrada de energia painéis solares, que são conectados através de um conversor \textit{boost} a duas baterias Li-Ion conectadas em série. Um algortimo \gls{mppt} é utilizado para operar os paineis com máxima eficiência. O sistema distribui a energia para os outros módulos do satélite (computador de bordo, sistema de comunicação e \textit{payloads}) em diferentes tensões através de conversores CC-CC integrados. Será realizada a modelagem do sistema, simulações e, por fim, testes com o sistema real, de forma que será possível validar a simulação para trabalhos futuros assim como verificar se o sistema projetado está de acordo com o necessário.
+Neste trabalho será apresentado o \gls{eps} do \textit{Cubesat} FloripaSat, atualmente em desenvolvimento na UFSC, com foco no gerenciamento da energia, desde a entrada até o consumo dos outros módulos. Este \gls{eps} tem como entrada de energia painéis solares, que são conectados através de um conversor \textit{boost} a duas baterias Li-Ion conectadas em série. Um algortimo \gls{mppt} é utilizado para operar os paineis com máxima eficiência. O sistema distribui a energia para os outros módulos do satélite (computador de bordo, sistema de comunicação e \textit{payloads}) em diferentes tensões através de conversores CC-CC integrados. Um diagrama de blocos deste sistema pode ser visto na figura \ref{figura_diagrama_blocos}.
+
+\begin{figure}[!htpb]
+\begin{center}
+\includegraphics[scale=0.5]{figures/diagramaBlocos.png}
+\end{center}
+\caption{Diagrama de Blocos do Sistema}
+\label{figura_diagrama_blocos}
+\end{figure}
+
+
+Será realizada a modelagem do sistema, simulações e, por fim, testes com o sistema real, de forma que será possível validar a simulação para trabalhos futuros assim como verificar se o sistema projetado está de acordo com o necessário.
 
 \section{Objetivos}
 
-Esta seção apresenta o objetivo geral e os objetivos específicos deste trabalho.
+Os objetivos gerais do trabalho são: modelar, simular e testar o funcionamento do módulo de energia do nanossatélite Floripa-Sat.
 
-\subsection{Geral}
-
-Modelar, simular e testar o funcionamento do módulo de energia do nanossatélite Floripa-Sat.
-
-\subsection{Específicos}
+Como objetivos específicos podemos citar:
 \begin{itemize}
 \item Modelar os painéis solares
 \item Modelar o conversor boost da entrada

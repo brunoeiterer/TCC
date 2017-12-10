@@ -1,6 +1,10 @@
 \chapter{Simulação do Sistema} \label{secao:simulacao_sistema}
 
-A simulação foi realizada no ambiente Simulink em conjunto com o Simscape, de forma a facilitar a implementação de circuitos elétricos.
+\section{Introdução}
+
+Este capítulo apresenta a simulação do sistema, realizada no ambiente Simulink em conjunto com o Simscape, de forma a facilitar a implementação de circuitos elétricos. Primeiramente será apresentada a curva de irradiância utilizada como entrada para a simulação, depois serão apresentados os blocos principais que compõem sistema e como foram implementados. Por fim são apresentados os resultados da simulação.
+
+\section{Entrada e Blocos Principais}
 
 Para simular o sistema é necessário ter como entrada uma curva de irradiância. A curva aqui utilizada é baseada em um modelo de órbita desenvolvido no LCS/UFSC \cite{slongo2016}, o qual considera uma órbita equatorial, que apresenta regiões de eclipse, nas quais a Terra fica entre o satélite e o Sol (pior caso em termos de entrada de energia). A curva é apresentada na Figura \ref{figura_irradiancia_simulacao}.
 
@@ -12,13 +16,67 @@ Para simular o sistema é necessário ter como entrada uma curva de irradiância
 \end{center}
 \end{figure}
 
-O modelo do painel solar apresentado no capítulo \ref{secao:painel solar} foi implementado utilizando a linguagem Simscape, dentro do ambiente Simulink. Devido ao fato de que, pela geometria do \textit{cubesat}, apenas três faces recebem iluminação ao mesmo tempo, foram considerados três painéis conectados ao sistema.
+O modelo do painel solar apresentado no capítulo \ref{secao:painel solar} foi implementado utilizando a linguagem Simscape, dentro do ambiente Simulink. Esta linguagem permite a definição dos terminais positivo e negativo, dos parâmetros \gls{Rs}, \gls{Rp}, \gls{Io} e \gls{n} e também da relação entre a tensão nos terminais e a corrente do painel. O bloco resultante está na Figura \ref{figura_bloco_painel_solar}.
 
-O conversor \textit{Boost} foi simulado de forma bastante simples através de uma fonte de tensão controlada, de forma que a amplitude da fonte representa o ganho de tensão do conversor. O controle da amplitude foi realizado pelo algoritmo \gls{peo} implementado através do bloco \textit{MATLAB Function}.
+\begin{figure}[!htpb]
+\begin{center}
+\includegraphics[scale=0.5]{figures/solarPanelBlock.png}
+\end{center}
+\caption{Bloco do Painel Solar}
+\label{figura_bloco_painel_solar}
+\end{figure}
 
-A potência consumida pelas cargas foi simulada através de uma fonte de corrente controlada pelo modelo do capítulo \ref{secao:modelagem_cargas} e alimentada por um conversor DC-DC ideal.
+Devido ao fato de que, pela geometria do \textit{cubesat}, apenas três faces recebem iluminação ao mesmo tempo, foram considerados três painéis conectados ao sistema.
 
-Por fim as baterias foram simuladas utilizando o bloco \textit{Generic Battery} do Simscape.
+O conversor \textit{Boost} foi simulado de forma bastante simples através de uma fonte de tensão controlada, de forma que a amplitude da fonte representa o ganho de tensão do conversor (Figura \ref{figura_conversor_boost_simulacao}). O controle da amplitude foi realizado pelo algoritmo \gls{peo} implementado através do bloco \textit{MATLAB Function} (Figura \ref{figura_bloco_mppt}). A saída deste bloco foi conectada ao controle da fonte de tensão, de forma a se realizar o controle da tensão do painel solar.
+
+\begin{figure}[!htpb]
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=0.5]{figures/boostConverterBlock.png}
+\end{center}
+\caption{Conversor \textit{Boost}}
+\label{figura_conversor_boost_simulacao}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=0.5]{figures/MPPT_block.png}
+\end{center}
+\caption{Função do MPPT}
+\label{figura_bloco_mppt}
+\end{minipage}
+\end{figure}
+
+A potência consumida pelas cargas foi simulada através de uma fonte de corrente controlada pelo modelo do capítulo \ref{secao:modelagem_cargas} e alimentada por um conversor DC-DC ideal (figuras \ref{figura_fonte_carga} e \ref{figura_conversor_carga}).
+
+\begin{figure}[!htpb]
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=0.5]{figures/loadSource.png}
+\end{center}
+\caption{Fonte de Corrente da Carga}
+\label{figura_fonte_carga}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+\includegraphics[scale=0.5]{figures/loadConverterBlock.png}
+\end{center}
+\caption{Conversor da Carga}
+\label{figura_conversor_carga}
+\end{minipage}
+\end{figure}
+
+Por fim as baterias foram simuladas utilizando o bloco \textit{Generic Battery} do Simscape. Como as baterias reais cortam a corrente caso a bateria chegue a \SI{2.4}{\volt}, para sua proteção, este comportamento também foi simulado utilizando uma chave e um diodo (Figura \ref{figura_bloco_bateria}).
+
+\begin{figure}[!htpb]
+\begin{center}
+\includegraphics[scale=0.5]{figures/Battery.png}
+\end{center}
+\caption{Bloco de Simulação de uma Bateria}
+\label{figura_bloco_bateria}
+\end{figure}
+
+\section{Resultados}
 
 Pode-se visualizar a atuação do algoritmo \gls{peo} na Figura \ref{figura_simulacao_tensao_painel_solar}, sendo que nos momentos onde existe luz no painel solar a tensão é variada de forma a manter o painel operando no \gls{mpp}.
 
@@ -65,3 +123,7 @@ As tensões das baterias podem ser vistas nas figuras \ref{figura_simulacao_tens
 \label{figura_simulacao_tensao_bat2}
 \end{center}
 \end{figure}
+
+\section{Conclusões}
+
+Aqui foi apresentado como foi realizada a simulação do sistema, mostrando os blocos principais implementados no Simulink e no Simscape. Além disso foi feita uma breve análise dos resultados, mostrando que a princípio estão coerentes.

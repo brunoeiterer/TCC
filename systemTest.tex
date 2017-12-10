@@ -1,10 +1,16 @@
 \chapter{Teste na Bancada do Sistema Real} \label{secao:teste_sistema}
 
+\section{Introdução}
+
+Primeiramente será apresentada a bancada do sistema, principalmente como é gerada a iluminação dos painéis solares, junto com uma explicação de como as cargas foram distribuidas. Também serão apresentadas as baterias e os painéis utilizados. Depois serão apresentados os resultados dos testes e uma comparação entre a simulação e o teste, assim como uma análise se o sistema atende os requisitos.
+
+\section{Descrição da Bancada} 
+
 Para emular a iluminação solar foram utilizados quatro LEDs de alta potência (\SI{100}{\watt} cada), sendo que a potência fornecida para os LEDs foi controlada de forma a seguir a curva obtida com o modelo citado no capítulo \ref{secao:simulacao_sistema}.
 
 A carga do sistema foi dividida em duas partes: o aquecimento das baterias foi emulado com resistores conectados a saída de um conversor DC-DC. Foram usados três resistores de \SI{10}{\ohm} e um de \SI{47}{\ohm} em paralelo para se obter uma potência próxima a calculada. O resto da curva foi emulado através de uma fonte de quatro quadrantes operando com tensão positiva e corrente negativa.
 
-Duas baterias li-ion ICR18650-30A foram usadas para armazenar energia e 3 paineis solares com 4 conjuntos em paralelo de 10 células KXOB22-12X1F em série foram usados para fornecer a energia.
+Duas baterias li-ion ICR18650-30A foram usadas para armazenar energia e 3 painéis solares com 4 conjuntos em paralelo de 10 células KXOB22-12X1F em série foram usados para fornecer a energia.
 
 A bancada utilizada pode ser vista na Figura \ref{figura_bancada_teste}.
 
@@ -15,6 +21,8 @@ A bancada utilizada pode ser vista na Figura \ref{figura_bancada_teste}.
 \label{figura_bancada_teste}
 \end{center}
 \end{figure}
+
+\section{Resultados}
 
 As correntes dos painéis estão nas figuras \ref{figura_teste_corrente_painel1}, \ref{figura_teste_corrente_painel2} e \ref{figura_teste_corrente_painel3}. Ao analisar a soma de todas as correntes vemos que o resultado é próximo à simulação realizada. Pode-se ver também que há uma pequena diferença entre as correntes dos painéis, que ocorreu devido a não uniformidade da disposição dos painéis.
 
@@ -120,6 +128,8 @@ Por fim temos as tensões das baterias 1 e 2 (figuras \ref{figura_teste_tensao_b
 \end{center}
 \end{figure}
 
+\section{Análise dos Resultados}
+
 Para quantificar a diferença de energia entre as cargas vamos integrar a potência dos painéis e a potência nas baterias, onde o sinal negativo indica que a potência está saindo das baterias.
 
 \begin{equation}
@@ -130,4 +140,8 @@ Para quantificar a diferença de energia entre as cargas vamos integrar a potên
 \int_{0}^{17390} P_{bat}(t) dt = \SI{-22.86}{\kilo\joule}
 \end{equation}
 
-Em primeira análise a energia consumida pelas cargas é maior do que a entrege pelos painéis, porém a irradiância utilizada nos testes não corresponde a irradiância incidente do sol no espaço. Na verdade o valor utilizado foi o máximo possível obtido com a bancada disponível, porém representa apenas aproximadamente metade do valor real (\SI{1367}{\watt\per\square\metre} de pico), o que já tornaria a entrada de energia maior do que o consumo. Portanto, pode-se concluir que o sistema está projetado de forma adequada para atender as cargas solicitadas.
+Em primeira análise a energia consumida pelas cargas é maior do que a entregue pelos painéis, porém a irradiância utilizada nos testes não corresponde a irradiância incidente do sol no espaço. Na verdade o valor utilizado foi o máximo possível obtido com a bancada disponível, porém representa apenas aproximadamente metade do valor real (\SI{1367}{\watt\per\square\metre} de pico), o que já tornaria a entrada de energia maior do que o consumo. Portanto, pode-se concluir que o sistema está projetado de forma adequada para atender as cargas solicitadas.
+
+\section{Conclusões}
+
+Com o que foi exposto neste capítulo foi possível ver como foram realizados os testes, assim como os resultados e que o sistema atende os requisitos. Além disso, foi visto que a simulação difere um pouco dos resultados reais.

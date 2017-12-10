@@ -6,6 +6,10 @@
 
 \usepackage{textcomp}
 
+\usepackage{rotating}
+
+\usepackage{pdfpages} 
+
 %---- Bibliography packages ----%
 
 \usepackage[style=numeric, sorting=none]{biblatex}
@@ -29,7 +33,7 @@
 \input{figures/flowchartBlocks}
 
 %---- Lists Packages ----%
-\usepackage[acronym, automake, nomain, nonumberlist]{glossaries-extra}
+\usepackage[acronym, symbols, nomain, nonumberlist]{glossaries-extra}
 
 % Preâmbulo
 \titulo{Modelagem, Simulação e Testes de um Sistema de Energia Aplicado a Nanossatélites}
@@ -38,15 +42,15 @@
 \instituicao{Universidade Federal de Santa Catarina}
 \local{Florianópolis}
 \tipotrabalho{}
-\orientador{Prof. Eduardo Augusto Bezerra, Ph.D.}
-\coorientador{Leonardo Kessler Slongo, Ms.C.}
+\orientador{Leonardo Kessler Slongo, Ms.E.}
+\coorientador{Eduardo Augusto Bezerra, Ph.D.}
 \programa{Engenharia Elétrica}
 \preambulo{}
 \centro{}
 \assuntos{}
 
 \setabbreviationstyle[acronym]{long-short}
-\makeglossaries
+\makenoidxglossaries
 \loadglsentries[\acronymtype]{glossary}
 
 \addto\captionsbrazil{\renewcommand\listfigurename{Lista de Figuras}}
@@ -67,8 +71,8 @@ Bruno Vale Barbosa Eiterer \\
 \hfill
 \begin{minipage}{0.5\textwidth}
 \raggedright \small Trabalho de Conclusão de Curso submetido à Universidade Federal de Santa Catarina, como parte dos requisitos necessários para a obtenção do Grau de Bacharel em Engenharia Elétrica. \\
-Orientador: Prof. Eduardo Augusto Bezerra, Ph.D. \\
-Coorientador: Leonardo Kessler Slongo, Ms.C.
+Orientador: Leonardo Kessler Slongo, Ms.E. \\
+Coorientador: Eduardo Augusto Bezerra, Ph.D.
 \end{minipage}
 \vfill
 \begin{center}
@@ -78,7 +82,7 @@ Florianópolis \\
 
 
 \clearpage
-\imprimirfichacatalografica%
+\includepdf[pages=-]{Ficha_Catalografica.pdf}
 %\tableofcontents%
 \textual%
 
@@ -86,7 +90,7 @@ Florianópolis \\
 \begin{center}
 \large\textbf{AGRADECIMENTOS}
 \end{center}
-À equipe do EPS do FloripaSat, Leonardo Slongo, Sara Vega e Túlio Gomes, por todos as discussões, testes e por todos os momentos passados juntos nesses quatro anos. Aos demais membros do FloripaSat, por todo o companheirismo. Aos meu pais, Berenice e Antonio Carlos, por todo seu apoio. Ao meu irmão, Caio, por toda a ajuda durante o curso. À minha irmã, Letícia, por todas as risadas, séries e músicas compartilhadas. Ao professor e orientador Eduardo Bezerra, pela orientação em todos os anos de trabalho. 
+À equipe do EPS do FloripaSat, Leonardo Slongo, Sara Vega e Túlio Gomes, por todos as discussões, testes e por todos os momentos passados juntos nesses quatro anos. Aos demais membros do FloripaSat, por todo o companheirismo. Aos meu pais, Berenice e Antonio Carlos, por todo seu apoio. Ao meu irmão, Caio, por toda a ajuda durante o curso. À minha irmã, Letícia, por todas as risadas, séries e músicas compartilhadas. Ao professor e coorientador Eduardo Bezerra, pela orientação em todos os anos de trabalho. 
 
 \clearpage
 \begin{center}
@@ -110,6 +114,8 @@ Nowadays satellites are a daily part of people life, even if they are invisible.
 \listoftables
 \glsaddall 
 \printglossary[type=\acronymtype, title = Lista de Abreviaturas e Siglas]
+\clearpage
+\printnoidxglossary[type=symbols, sort=standard, title = Lista de Símbolos]
 \clearpage
 \setcounter{tocdepth}{3} % + subsubsections
 \tableofcontents

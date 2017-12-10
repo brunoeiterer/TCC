@@ -1,4 +1,8 @@
-\chapter{Modelagem das Cargas} \label{secao:modelagem_cargas}
+\chapter{Dimensionamento das Cargas} \label{secao:modelagem_cargas}
+
+\section{Introdução}
+
+Para que seja possível simular e validar o sistema é necessário saber qual o seu consumo, de forma que é possível saber se o sistema atende os requisitos. Além disso, o dimensionamento das cargas possibilita o projeto dos conversores que as alimentam. Este capítulo apresenta o dimensionamento das cargas de todo o sistema, incluindo o computador de bordo, os rádios, o sistema de energia e os \textit{payloads}.
 
 \section{Computador de Bordo}
 
@@ -31,7 +35,7 @@ Aqui foram considerados apenas os consumos constantes, ou seja, o aumento no con
 
 \section{Rádios e Amplificadores de Potência}
 
-Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do que em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica ativo somente durante transmissões. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Cada rádio envia periodicamente dados para a Terra, com períodos de transmissão e o tempo ativo diferentes. Além disso, existe a possibilidade de a estação terrestre solicitar o envio de dados através de telecomandos. Neste caso, a transmissão fica ativa até que todos os dados solicitados sejam enviados. Para modelar este comportamento será considerada uma janela de 10 minutos por órbita, o que simula um hipotético pior caso (em termos de energia consumida).
+Os dois rádios do satélite têm como função enviar os dados coletados para a terra, através de telemetria. Durante a transmissão o consumo de potência é muito maior do que em outros momentos, devido ao fato de que o \gls{pa} de cada rádio fica ativo somente durante transmissões. Portanto para modelar o consumo deste sistema será considerado apenas o comportamento dinâmico, de acordo com a tabela \ref{consumo_radios}. Cada rádio envia periodicamente dados para a Terra, com períodos de transmissão e o tempo ativo diferentes. Além disso, existe a possibilidade de a estação terrestre solicitar o envio de dados através de telecomandos. Neste caso, a transmissão fica ativa até que todos os dados solicitados sejam enviados. Para modelar este comportamento será considerada uma janela de 10 minutos por órbita, o que simula um hipotético pior caso (em termos de energia consumida). Cada /gls{pa} é alimentado com \SI{5}{\volt}.
 
 \begin{table}[!htpb]
 \centering
@@ -39,8 +43,8 @@ Os dois rádios do satélite têm como função enviar os dados coletados para a
 \\ \hline
 Componente & Período/ & Corrente [\SI{}{\ampere}] & Potência [\SI{}{watt}] \\
 & Tempo Ativo [\SI{}{\second}] & & \\ \hline \hline
-\glsentryshort{pa} (Transceiver) & 60/2 & 0,6 \cite{rf6886} & 1.98 \\
-\glsentryshort{pa} (Beacon) & 10/0,6 & 0,6 \cite{rf6886} & 1,98 \\ \hline
+\glsentryshort{pa} (Transceiver) & 60/2 & 0,396 \cite{rf6886} & 1,98 \\
+\glsentryshort{pa} (Beacon) & 10/0,6 & 0,396 \cite{rf6886} & 1,98 \\ \hline
 Total & - & - & - \\ \hline
 \end{tabular}
 \caption{Consumo dos Rádios}
@@ -79,6 +83,24 @@ Total & - & - & - \\ \hline
 
 O Conversor CC-CC 5420 tem como função alimentar a parte digital dos rádios e o Sistema de Energia, portanto seu consumo é constante. Da mesma forma, o Conversor CC-CC 5410 tem como função alimentar o Computador de Bordo, portanto seu consumo também é constante. Por fim, o Conversor CC-CC 54540 tem como função alimentar o \gls{pa} de cada rádio, de forma que o seu consumo é dinâmico, com comportamento igual ao dos rádios. O aquecedor das baterias só é necessário nos momentos da órbita onde há eclipse (um terço da órbita), portanto assim será considerado para a modelagem.
 
+Quando comparado com os outros módulos, este apresenta o maior consumo, porém isso acontece devido quase que somente aos aquecedores, que são componentes essenciais para o satélite.
+
 \section{\textit{Payloads}}
 
 Os \textit{Payloads} são os módulos do satélite que realizam o objetivo principal do satélite. Por exemplo, no caso de um satélite que tira fotos da terra os \textit{payloads} são as câmeras. No caso deste trabalho o \textit{payload} é um \gls{fpga} usado para testar os efeitos da radição nos componentes no espaço, com consumo de \SI{288}{\milli\ampere} em \SI{5}{\volt} (\SI{1,44}{\watt}), devido a presença do \gls{fpga} Xilinx Artix 7 XC7A200T.
+
+\section{Conclusões}
+
+Para melhor visualização das cargas do sistema, a curva de corrente de carga para três órbitas pode ser vista na figura \ref{figura_corrente_carga}. Estes valores de corrente correspondem a potência apresentada nas seções anteriores para um tensão de \SI{5}{\volt}, que é a tensão de saída do regulador utilizado na simulação.
+
+O valor máximo de potência da carga é de \SI{5.785}{\watt}, quando há uma transmissão ocorrendo e os aquecedores estão ligados.
+
+\begin{figure}[!htpb]
+\begin{center}
+\includegraphics[scale=0.5]{figures/loadCurrent.png}
+\end{center}
+\caption{Corrente de Carga}
+\label{figura_corrente_carga}
+\end{figure}
+
+Com isto é possível realizar a simulação do sistema.

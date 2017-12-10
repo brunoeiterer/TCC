@@ -1,6 +1,8 @@
 \chapter{Funcionamento e Modelagem dos Conversores CC-CC} \label{secao:conversores_cc_cc}
 
-Para possibilitar o controle do ponto de operação do painel são empregados conversores CC-CC com diferentes técnicas de controle. As mais comuns são o casamento de impedância entre a carga e a impedância vista pelos terminais do painel \cite{haroun2015}, \cite{ramasamy2014} e o controle direto da tensão nos terminais do painel, quando a carga é um barramento com tensão constante \cite{xiao2007topology}, \cite{xiao2007}.
+\section{Introdução}
+
+Para possibilitar o controle do ponto de operação do painel são empregados conversores CC-CC com diferentes técnicas de controle. As mais comuns são o casamento de impedância entre a carga e a impedância vista pelos terminais do painel \cite{haroun2015}, \cite{ramasamy2014} e o controle direto da tensão nos terminais do painel, quando a carga é um barramento com tensão constante \cite{xiao2007topology}, \cite{xiao2007}, \cite{coelho2012}. Este capítulo apresenta uma modelagem para cada caso, primeiramente com um conversor \textit{Buck} e depois com um conversor \textit{Boost}.
 
 \section{Casamento de Impedância}
 
@@ -155,3 +157,9 @@ V_{pv} = V_{bat}(1-D)
 Com isso vemos que é possível controlar a tensão do painel diretamente pelo controle da razão cíclica do conversor.
 
 Esta estratégia de controle direto com conversor \textit{Boost} será a implementada neste trabalho, devido ao fato de que os painéis trabalham em torno de \SI{5}{\volt} e as duas baterias em série apresentam uma tensão de \SI{5,4}{\volt} quando estão descarregadas ao limite inferior.
+
+\section{Conclusões}
+
+Como apresentado, obteve-se uma equação que representa a interface entre os painéis solares e a carga do sistema para dois casos, um com a carga representada por um resistor, na qual a tensão é fixada pelo conversor, e um com a carga representada por um barramento de tensão constante, no qual a tensão do painel é fixada diretamente pelo conversor. Com estas equações em mãos é possível implementar os modelos dos conversores em uma simulação.
+
+Outro aspecto interessante é que, assim como no caso deste trabalho, na eventualidade de se haver um problema com o barramento de tensão constante, por exemplo a bateria ser desconectada do sistema, a carga poderia voltar a ser representada por um resistor, retornando ao primeiro caso. Assim o que foi exposto cobre os dois casos possíveis de operação do sistema.
